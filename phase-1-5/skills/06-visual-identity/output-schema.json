@@ -1,0 +1,357 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 06 — visual-identity Output",
+  "description": "Complete visual brand system calibrated on buyer psychology. Written to phase-1-5/outputs/06-visual-identity.json",
+  "type": "object",
+  "required": [
+    "color_system",
+    "typography_system",
+    "readability_specs",
+    "platform_templates",
+    "emotional_journey",
+    "trust_visuals",
+    "tactile_realism",
+    "canva_midjourney_prompts",
+    "competitive_differentiation",
+    "ab_test_priority"
+  ],
+  "properties": {
+    "color_system": {
+      "type": "object",
+      "description": "60-30-10 color system derived from dominant_emotion mapping",
+      "required": ["dominant_60", "secondary_30", "cta_accent_10"],
+      "properties": {
+        "dominant_60": {
+          "type": "object",
+          "required": ["hex", "emotion_rationale"],
+          "properties": {
+            "hex": {
+              "type": "string",
+              "description": "6-digit hex color code (e.g. '#1A1A40')"
+            },
+            "emotion_rationale": {
+              "type": "string",
+              "description": "Why this color matches the dominant_emotion (e.g. 'Deep midnight signals authority and urgency for fear-driven buyers')"
+            }
+          }
+        },
+        "secondary_30": {
+          "type": "object",
+          "required": ["hex", "role"],
+          "properties": {
+            "hex": {
+              "type": "string",
+              "description": "6-digit hex color code"
+            },
+            "role": {
+              "type": "string",
+              "description": "Functional role in layout (e.g. 'backgrounds, section dividers, card surfaces')"
+            }
+          }
+        },
+        "cta_accent_10": {
+          "type": "object",
+          "required": ["hex", "contrast_ratio"],
+          "properties": {
+            "hex": {
+              "type": "string",
+              "description": "6-digit hex color code — appears ONLY on CTA button(s), nowhere else on page"
+            },
+            "contrast_ratio": {
+              "type": "string",
+              "description": "WCAG contrast ratio against page background (e.g. '7.2:1') — must be >= 4.5:1"
+            }
+          }
+        }
+      }
+    },
+    "typography_system": {
+      "type": "object",
+      "required": ["title_font", "body_font", "accent_font", "price_tier_rationale"],
+      "properties": {
+        "title_font": {
+          "type": "string",
+          "description": "Google Fonts name for headlines and titles (e.g. 'Playfair Display')"
+        },
+        "body_font": {
+          "type": "string",
+          "description": "Google Fonts name for body copy and subheadings (e.g. 'Inter')"
+        },
+        "accent_font": {
+          "type": ["string", "null"],
+          "description": "Optional Google Fonts name for accent/handwriting elements. Null if not used."
+        },
+        "price_tier_rationale": {
+          "type": "string",
+          "description": "Why this font pairing matches the price_point and psychographic (e.g. 'Playfair + Inter signals quiet luxury appropriate for $47 premium tier')"
+        }
+      }
+    },
+    "readability_specs": {
+      "type": "object",
+      "required": [
+        "ebook_body_size_px",
+        "ebook_line_height",
+        "ebook_max_line_chars",
+        "social_title_size_px"
+      ],
+      "properties": {
+        "ebook_body_size_px": {
+          "type": "number",
+          "minimum": 16,
+          "maximum": 18,
+          "description": "Body font size in pixels for ebook/PDF (16-18)"
+        },
+        "ebook_line_height": {
+          "type": "string",
+          "description": "Line height multiplier (e.g. '1.5x')"
+        },
+        "ebook_max_line_chars": {
+          "type": "number",
+          "minimum": 50,
+          "maximum": 75,
+          "description": "Maximum characters per line for ebook body (50-75)"
+        },
+        "social_title_size_px": {
+          "type": "number",
+          "minimum": 80,
+          "description": "Minimum title font size in pixels at 1080px canvas width (min 80)"
+        }
+      }
+    },
+    "platform_templates": {
+      "type": "object",
+      "required": ["tiktok", "instagram_feed", "pinterest"],
+      "properties": {
+        "tiktok": {
+          "type": "object",
+          "required": ["safe_zone_top_px", "safe_zone_bottom_px", "text_style"],
+          "properties": {
+            "safe_zone_top_px": {
+              "type": "number",
+              "const": 250,
+              "description": "Text-free zone from top edge in pixels"
+            },
+            "safe_zone_bottom_px": {
+              "type": "number",
+              "const": 300,
+              "description": "Text-free zone from bottom edge in pixels"
+            },
+            "text_style": {
+              "type": "string",
+              "description": "Visual text treatment for TikTok overlays (e.g. 'Bold white sans-serif, black drop shadow, kinetic shake animation')"
+            }
+          }
+        },
+        "instagram_feed": {
+          "type": "object",
+          "required": ["margins_px", "ratio"],
+          "properties": {
+            "margins_px": {
+              "type": "number",
+              "const": 80,
+              "description": "Safe margin on all sides in pixels"
+            },
+            "ratio": {
+              "type": "string",
+              "const": "1:1",
+              "description": "Canvas aspect ratio"
+            }
+          }
+        },
+        "pinterest": {
+          "type": "object",
+          "required": ["ratio", "palette_note"],
+          "properties": {
+            "ratio": {
+              "type": "string",
+              "const": "2:3",
+              "description": "Canvas aspect ratio"
+            },
+            "palette_note": {
+              "type": "string",
+              "description": "Platform-specific color guidance (e.g. 'High contrast dominant_60 background, champagne title text, CTA accent on button strip at bottom')"
+            }
+          }
+        }
+      }
+    },
+    "emotional_journey": {
+      "type": "object",
+      "description": "Color and typography behavior across the 4 funnel stages",
+      "required": ["awareness", "consideration", "decision", "post_purchase"],
+      "properties": {
+        "awareness": {
+          "type": "object",
+          "required": ["color_shift", "saturation_boost"],
+          "properties": {
+            "color_shift": {
+              "type": "string",
+              "description": "How dominant color is modified at awareness stage (e.g. 'dominant_60 at +18% saturation for dopamine activation')"
+            },
+            "saturation_boost": {
+              "type": "string",
+              "description": "Saturation increase applied (e.g. '+18%')"
+            }
+          }
+        },
+        "consideration": {
+          "type": "object",
+          "required": ["color_shift", "typography_note"],
+          "properties": {
+            "color_shift": {
+              "type": "string",
+              "description": "Color transition at consideration stage (e.g. 'Shift to elevated neutrals — secondary_30 dominates layout')"
+            },
+            "typography_note": {
+              "type": "string",
+              "description": "Typography treatment at consideration stage (e.g. '16px body, 1.5x line-height, max 65 chars/line')"
+            }
+          }
+        },
+        "decision": {
+          "type": "object",
+          "required": ["cta_color", "urgency_technique"],
+          "properties": {
+            "cta_color": {
+              "type": "string",
+              "description": "CTA accent hex — isolated occurrence only (e.g. '#EC5800')"
+            },
+            "urgency_technique": {
+              "type": "string",
+              "description": "Scarcity/urgency visual technique deployed at this stage (e.g. 'countdown timer in cta_accent_10 color, risk-reversal badge adjacent to button')"
+            }
+          }
+        },
+        "post_purchase": {
+          "type": "object",
+          "required": ["color_shift", "rationale"],
+          "properties": {
+            "color_shift": {
+              "type": "string",
+              "description": "Color palette used in confirmation/upsell screens (e.g. 'Switch to deep navy #1F3A68 + calming green #2E7D32')"
+            },
+            "rationale": {
+              "type": "string",
+              "description": "Why this shift serves buyer psychology (e.g. 'Parasympathetic colors reduce post-purchase anxiety before presenting upsell')"
+            }
+          }
+        }
+      }
+    },
+    "trust_visuals": {
+      "type": "object",
+      "required": ["hero_mockup_spec", "proof_wall_type", "risk_reversal_badge"],
+      "properties": {
+        "hero_mockup_spec": {
+          "type": "string",
+          "description": "Full spec for the hero product image (e.g. '3D ebook mockup, 300 DPI, 15-degree perspective, hard drop shadow, surrounded by laptop + mobile device frames with real content visible')"
+        },
+        "proof_wall_type": {
+          "type": "string",
+          "description": "Social proof visual treatment (e.g. 'Floor-to-ceiling raw DM screenshots, slight rotation variation, no cropping of usernames, raw > polished')"
+        },
+        "risk_reversal_badge": {
+          "type": "string",
+          "description": "Guarantee badge placement and design (e.g. '30-day money-back shield badge, placed directly adjacent to CTA button, not below the fold')"
+        }
+      }
+    },
+    "tactile_realism": {
+      "type": "object",
+      "required": ["grain_opacity", "texture_overlay", "handwriting_accent"],
+      "properties": {
+        "grain_opacity": {
+          "type": "string",
+          "description": "Noise grain layer opacity range (e.g. '5%')"
+        },
+        "texture_overlay": {
+          "type": "string",
+          "description": "Texture type and blending mode (e.g. 'Linen paper texture in Multiply blending mode at 8% opacity on hero section')"
+        },
+        "handwriting_accent": {
+          "type": "string",
+          "description": "Script font name + usage rule (e.g. 'Caveat — used as PNG image overlay, not editable text — arrow pointing to CTA with label Start here!')"
+        }
+      }
+    },
+    "canva_midjourney_prompts": {
+      "type": "object",
+      "description": "Ready-to-paste generation prompts for all 4 platforms",
+      "required": ["ebook_cover", "tiktok_visual", "instagram_post", "pinterest_pin"],
+      "properties": {
+        "ebook_cover": {
+          "type": "string",
+          "description": "Full Canva/Midjourney prompt for ebook cover — includes color hex, mood, style, and dimensions"
+        },
+        "tiktok_visual": {
+          "type": "string",
+          "description": "Full prompt for TikTok background visual — respects safe zones, kinetic feel"
+        },
+        "instagram_post": {
+          "type": "string",
+          "description": "Full prompt for Instagram 1:1 post — includes 80px margins guidance, palette"
+        },
+        "pinterest_pin": {
+          "type": "string",
+          "description": "Full prompt for Pinterest 2:3 pin — high contrast, title-first hierarchy"
+        }
+      }
+    },
+    "competitive_differentiation": {
+      "type": "object",
+      "required": [
+        "competitors_audited",
+        "dominant_pattern_in_niche",
+        "our_disruptor_color",
+        "differentiation_axis"
+      ],
+      "properties": {
+        "competitors_audited": {
+          "type": "array",
+          "description": "Names of competitors whose visual identity was audited",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "dominant_pattern_in_niche": {
+          "type": "string",
+          "description": "The visual pattern all/most competitors share (e.g. 'All use navy + orange CTA on white background with serif title fonts')"
+        },
+        "our_disruptor_color": {
+          "type": "string",
+          "description": "Hex code of the single color that breaks the dominant pattern"
+        },
+        "differentiation_axis": {
+          "type": "string",
+          "enum": ["color", "typography", "style"],
+          "description": "Which visual axis is used to differentiate (color = different dominant/CTA, typography = different font family, style = dark vs light / minimal vs loud)"
+        }
+      }
+    },
+    "ab_test_priority": {
+      "type": "array",
+      "description": "Ordered list of A/B test recommendations — highest impact first",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["element", "variant_a", "variant_b"],
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "Page/asset element being tested (e.g. 'CTA button color')"
+          },
+          "variant_a": {
+            "type": "string",
+            "description": "Control variant description (e.g. '#EC5800 persimmon')"
+          },
+          "variant_b": {
+            "type": "string",
+            "description": "Challenger variant description (e.g. '#FFD700 sunset gold')"
+          }
+        }
+      }
+    }
+  }
+}

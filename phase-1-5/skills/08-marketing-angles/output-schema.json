@@ -1,0 +1,512 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "marketing-angles — Output Schema",
+  "description": "Output for Skill 08: marketing-angles. Produces two files: 08-marketing-angles.json and PHASE-1.5-OUTPUT.md.",
+  "type": "object",
+  "required": [
+    "new_mechanism",
+    "top_10_angles",
+    "angle_library_30",
+    "recycling_system_1_to_7",
+    "launch_sequence_30_days",
+    "competitive_gap",
+    "angle_testing_protocol",
+    "angle_stacking_rules",
+    "tiktok_flash_script"
+  ],
+  "properties": {
+    "new_mechanism": {
+      "type": "object",
+      "description": "Proprietary mechanism definition. Every $17-$47 product requires a named mechanism to shift from feature competition to process ownership.",
+      "required": ["name", "naming_structure", "positioning_statement", "nesb_validation"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Proprietary mechanism name. Must match new_mechanism_name from input."
+        },
+        "naming_structure": {
+          "type": "string",
+          "enum": ["protocol", "system", "technology", "formula", "matrix"],
+          "description": "The structural naming convention applied. Select based on niche feel."
+        },
+        "positioning_statement": {
+          "type": "string",
+          "description": "Mandatory template: '[Mechanism Name]: the only method that [desired result] without [main pain point] — even if [biggest objection].'"
+        },
+        "nesb_validation": {
+          "type": "object",
+          "description": "Four-axis mechanism validation. All four must pass before deployment.",
+          "required": ["new", "easy", "safe", "big"],
+          "properties": {
+            "new": {
+              "type": "string",
+              "description": "Explain how the mechanism feels unlike anything the audience has tried before."
+            },
+            "easy": {
+              "type": "string",
+              "description": "Explain how the mechanism removes the dominant friction or effort barrier."
+            },
+            "safe": {
+              "type": "string",
+              "description": "Explain how the mechanism eliminates the biggest perceived risk."
+            },
+            "big": {
+              "type": "string",
+              "description": "Confirm the promised result matches the price point. $17=quick win | $27=repeatable system | $37=identity shift | $47=business transformation."
+            }
+          }
+        }
+      }
+    },
+    "top_10_angles": {
+      "type": "array",
+      "description": "Exactly 10 ranked marketing angles. Each mapped to correct awareness level. All hooks filled for the specific niche.",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "required": [
+          "rank",
+          "name",
+          "archetype",
+          "core_hook",
+          "primary_emotion",
+          "best_platform",
+          "awareness_level",
+          "proof_type",
+          "hooks"
+        ],
+        "properties": {
+          "rank": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 10,
+            "description": "Priority rank from 1 (highest) to 10 (lowest)."
+          },
+          "name": {
+            "type": "string",
+            "description": "Angle name. e.g. 'Root-Cause Revelation', 'Effortless Shortcut'."
+          },
+          "archetype": {
+            "type": "string",
+            "enum": ["identity", "enemy", "discovery", "speed", "contrarian", "social_proof"],
+            "description": "One of the 6 core angle archetypes."
+          },
+          "core_hook": {
+            "type": "string",
+            "description": "Fill-in-the-blank hook template. Uses [NICHE], [PERSONA], [RESULT], [MECHANISM] placeholders."
+          },
+          "primary_emotion": {
+            "type": "string",
+            "description": "The single emotion this angle triggers. Must match or complement dominant_emotion from input."
+          },
+          "best_platform": {
+            "type": "string",
+            "enum": ["tiktok", "instagram", "email", "sales_page"],
+            "description": "The single platform where this angle performs best given format and audience heat."
+          },
+          "awareness_level": {
+            "type": "string",
+            "enum": ["unaware", "problem_aware", "solution_aware", "product_aware", "most_aware"],
+            "description": "The audience awareness level this angle targets. Must never mismatch traffic temperature."
+          },
+          "proof_type": {
+            "type": "string",
+            "description": "Exact proof asset required for this angle. e.g. 'Before/After visual contrast graph', 'Screen recording time-stamped demo', 'Raw SMS/email screenshots'."
+          },
+          "hooks": {
+            "type": "object",
+            "description": "Three hook variants filled with exact validated_niche and persona details.",
+            "required": ["question", "statement", "negative_constraint"],
+            "properties": {
+              "question": {
+                "type": "string",
+                "description": "Hook written as a question. Fully filled for this niche — no placeholders."
+              },
+              "statement": {
+                "type": "string",
+                "description": "Hook written as a declarative statement. Fully filled for this niche — no placeholders."
+              },
+              "negative_constraint": {
+                "type": "string",
+                "description": "Hook using 'without', 'even if', or 'no [objection]' constraint. Fully filled for this niche — no placeholders."
+              }
+            }
+          }
+        }
+      }
+    },
+    "angle_library_30": {
+      "type": "array",
+      "description": "Complete 30-angle library. 6 categories × 5 angles. All core_hook_sentence fields filled for the specific niche. HALT if fewer than 30.",
+      "minItems": 30,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "required": [
+          "category",
+          "angle_name",
+          "core_hook_sentence",
+          "primary_emotion",
+          "best_platform"
+        ],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["identity", "enemy", "discovery", "speed", "contrarian", "social_proof"],
+            "description": "One of 6 categories. Each must have exactly 5 angles."
+          },
+          "angle_name": {
+            "type": "string",
+            "description": "Named angle within the category. e.g. 'Elite Club', 'System Rigged', 'Weird Hack'."
+          },
+          "core_hook_sentence": {
+            "type": "string",
+            "description": "Fill-in-the-blank hook sentence adapted for this niche. No generic placeholders — niche-filled."
+          },
+          "primary_emotion": {
+            "type": "string",
+            "description": "Primary emotion triggered by this angle."
+          },
+          "best_platform": {
+            "type": "string",
+            "description": "Best deployment platform for this angle."
+          }
+        }
+      }
+    },
+    "recycling_system_1_to_7": {
+      "type": "object",
+      "description": "One-to-seven content recycling system. Takes the #1 ranked angle and transforms it into 7 platform-native formats. All fields filled for the specific niche.",
+      "required": [
+        "source_angle",
+        "tiktok_hook",
+        "instagram_caption",
+        "email_subject",
+        "email_body_structure",
+        "sales_page_headline",
+        "meta_ad_copy",
+        "pinterest_pin_text"
+      ],
+      "properties": {
+        "source_angle": {
+          "type": "string",
+          "description": "The name of the #1 ranked angle used as the base for recycling."
+        },
+        "tiktok_hook": {
+          "type": "string",
+          "description": "Raw face-to-camera hook under 60s. Structure: [Old way] is dead → [New mechanism] → [Result in 7 days]. Filled for niche."
+        },
+        "instagram_caption": {
+          "type": "string",
+          "description": "PAS structure: [Problem] → [Agitate] → [Solution + link in bio]. Social SEO keywords in natural language. Filled for niche."
+        },
+        "email_subject": {
+          "type": "string",
+          "description": "4-6 word curiosity-gap subject line. e.g. 'The weird reason your [goal] is failing...' Never clickbait — always deliverable."
+        },
+        "email_body_structure": {
+          "type": "string",
+          "description": "300-word story arc. Discovery of mechanism → Root cause → Product as easy button → CTA. Uses verbal bridges: 'That said,' / 'But here's the thing,'"
+        },
+        "sales_page_headline": {
+          "type": "string",
+          "description": "NESB formula: 'The Only [Mechanism] That Lets [Persona] Achieve [Result] Without [Pain] in Just [Timeframe].' Filled for niche."
+        },
+        "meta_ad_copy": {
+          "type": "string",
+          "description": "AIDA structure: [Attention: stop old way] [Interest: 10k+ switched] [Desire: benefit + price] [Action: tap Learn More]. Filled for niche."
+        },
+        "pinterest_pin_text": {
+          "type": "string",
+          "description": "Visual listicle overlay text: '3 Steps to [Result] Using the [Mechanism] Method'. High contrast, 2:3 format, links to sales page. Filled for niche."
+        }
+      }
+    },
+    "launch_sequence_30_days": {
+      "type": "object",
+      "description": "Three-phase 30-day angle deployment sequence mapped to audience temperature.",
+      "required": ["phase_1_cold", "phase_2_warm", "phase_3_close"],
+      "properties": {
+        "phase_1_cold": {
+          "type": "object",
+          "description": "DISRUPTION phase. Days 1-10. Cold traffic. Never pitch the product in Phase 1.",
+          "required": ["days", "target", "angles", "platforms", "strategy"],
+          "properties": {
+            "days": {
+              "type": "string",
+              "const": "1-10"
+            },
+            "target": {
+              "type": "string",
+              "const": "unaware + problem_aware"
+            },
+            "angles": {
+              "type": "array",
+              "description": "Angle names deployed in this phase. Must include Enemy, Contrarian, Discovery archetypes.",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "platforms": {
+              "type": "array",
+              "description": "Platforms active in this phase. e.g. ['tiktok_organic', 'meta_tof_ads'].",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "strategy": {
+              "type": "string",
+              "description": "Strategic intent: invalidate existing beliefs, reveal root cause. No product mention."
+            }
+          }
+        },
+        "phase_2_warm": {
+          "type": "object",
+          "description": "INDOCTRINATION phase. Days 11-20. Warm traffic. Introduce mechanism as logical solution.",
+          "required": ["days", "target", "angles", "platforms", "strategy"],
+          "properties": {
+            "days": {
+              "type": "string",
+              "const": "11-20"
+            },
+            "target": {
+              "type": "string",
+              "const": "solution_aware"
+            },
+            "angles": {
+              "type": "array",
+              "description": "Angle names. Must include Identity, New Mechanism, Social Proof archetypes.",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "platforms": {
+              "type": "array",
+              "description": "e.g. ['email_sequence', 'retargeting_ads'].",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "strategy": {
+              "type": "string",
+              "description": "One case study per email. Identity shift framing. Mechanism revealed as only logical solution."
+            }
+          }
+        },
+        "phase_3_close": {
+          "type": "object",
+          "description": "4-DAY CASH MACHINE. Days 21-30. Hot traffic. Speed + Bandwagon + FOMO. Days 27-30 must have specific daily content.",
+          "required": ["days", "target", "angles", "key_days"],
+          "properties": {
+            "days": {
+              "type": "string",
+              "const": "21-30"
+            },
+            "target": {
+              "type": "string",
+              "const": "product_aware + most_aware"
+            },
+            "angles": {
+              "type": "array",
+              "description": "Angle names. Must include Speed, Bandwagon, FOMO archetypes.",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "key_days": {
+              "type": "object",
+              "description": "Specific content for each of the 4 final days. All fields required.",
+              "required": ["day_27", "day_28", "day_29", "day_30"],
+              "properties": {
+                "day_27": {
+                  "type": "string",
+                  "description": "Crazy Deal announcement — price + urgency anchor."
+                },
+                "day_28": {
+                  "type": "string",
+                  "description": "Value stack reveal — all bonuses listed with individual values."
+                },
+                "day_29": {
+                  "type": "string",
+                  "description": "Mass Exodus social proof — e.g. '500 joined yesterday'."
+                },
+                "day_30": {
+                  "type": "string",
+                  "description": "Final Warning — deadline ultimatum. e.g. 'price doubles at midnight'."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "competitive_gap": {
+      "type": "object",
+      "description": "Competitive angle audit. Identifies the blue ocean angle no competitor is using.",
+      "required": ["dominant_pattern", "blue_ocean_angle", "disruptor_axis", "differentiation_statement"],
+      "properties": {
+        "dominant_pattern": {
+          "type": "string",
+          "description": "What all competitors do. Pulled from competitor_dominant_angle in input."
+        },
+        "blue_ocean_angle": {
+          "type": "string",
+          "description": "The one angle none of the competitors are using. Selected from 3 options: Radical Transparency, Taboo/Mistake Reveal, or Identity Stage 5."
+        },
+        "disruptor_axis": {
+          "type": "string",
+          "enum": ["transparency", "taboo", "identity", "contrarian"],
+          "description": "The core disruptor axis for the blue ocean angle."
+        },
+        "differentiation_statement": {
+          "type": "string",
+          "description": "One-sentence statement of how this brand will be fundamentally different from all competitors in the market."
+        }
+      }
+    },
+    "angle_testing_protocol": {
+      "type": "object",
+      "description": "Standardised angle validation protocol. Deploy 5 variants → 72h window → kill or scale.",
+      "required": [
+        "hook_variants_to_test",
+        "deployment_platform",
+        "hold_rate_kill_threshold",
+        "hold_rate_scale_threshold",
+        "decision_window_hours",
+        "scaling_trigger"
+      ],
+      "properties": {
+        "hook_variants_to_test": {
+          "type": "number",
+          "const": 5,
+          "description": "Always 5 hook variants per test cycle."
+        },
+        "deployment_platform": {
+          "type": "string",
+          "description": "Primary organic platform for initial testing. e.g. 'TikTok organic / Instagram Reels'."
+        },
+        "hold_rate_kill_threshold": {
+          "type": "string",
+          "const": "40%",
+          "description": "3-second hold rate below 40% → angle is dead. Pivot immediately."
+        },
+        "hold_rate_scale_threshold": {
+          "type": "string",
+          "const": "60%",
+          "description": "3-second hold rate above 60% → angle validated. Move to paid traffic."
+        },
+        "decision_window_hours": {
+          "type": "number",
+          "const": 72,
+          "description": "Maximum hours before a kill or scale decision must be made."
+        },
+        "scaling_trigger": {
+          "type": "string",
+          "description": "The exact condition that triggers paid scaling. e.g. 'Hold rate >60% sustained for 48h with average watch time >15s.'"
+        }
+      }
+    },
+    "angle_stacking_rules": {
+      "type": "object",
+      "description": "Rules for stacking multiple hook types in the opening 3 seconds of content.",
+      "required": ["max_hooks_per_opening", "order", "example_stack"],
+      "properties": {
+        "max_hooks_per_opening": {
+          "type": "number",
+          "const": 2,
+          "description": "Never stack more than 2 hooks in the first 3 seconds."
+        },
+        "order": {
+          "type": "string",
+          "const": "pattern_interrupt → curiosity_gap",
+          "description": "Fixed order for hook stacking."
+        },
+        "example_stack": {
+          "type": "string",
+          "description": "A complete stacked hook example filled for this specific niche. No placeholders."
+        }
+      }
+    },
+    "tiktok_flash_script": {
+      "type": "object",
+      "description": "Complete 23-second TikTok script ready to shoot. All fields filled for this niche — no placeholders.",
+      "required": ["hook_3s", "agitate_5s", "value_demo_10s", "cta_5s"],
+      "properties": {
+        "hook_3s": {
+          "type": "string",
+          "description": "[0-3s] Pattern interrupt. Old method is dead. Filled for niche."
+        },
+        "agitate_5s": {
+          "type": "string",
+          "description": "[3-8s] Not their fault. Hidden root cause revealed. Filled for niche."
+        },
+        "value_demo_10s": {
+          "type": "string",
+          "description": "[8-18s] System demo + result + timeframe. Filled for niche."
+        },
+        "cta_5s": {
+          "type": "string",
+          "description": "[18-23s] Price anchor + link in bio + urgency. Filled for niche."
+        }
+      }
+    }
+  },
+  "output_files": [
+    {
+      "file": "phase-1-5/outputs/08-marketing-angles.json",
+      "format": "Pure JSON only — no markdown fences. All fields from this schema populated.",
+      "constraints": [
+        "top_10_angles: exactly 10 items, all hooks filled for niche",
+        "angle_library_30: exactly 30 items across 6 categories"
+      ]
+    },
+    {
+      "file": "phase-1-5/outputs/PHASE-1.5-OUTPUT.md",
+      "format": "Structured markdown summary",
+      "sections": [
+        "1. New Mechanism — name + positioning statement",
+        "2. Top 10 Angles — ranked table with hooks",
+        "3. 1→7 Recycling System — all 7 formats filled",
+        "4. 30-Day Launch Sequence — phase by phase",
+        "5. Competitive Gap — blue ocean angle selected",
+        "6. Testing Protocol — thresholds and pivot rules",
+        "7. TikTok Flash Script — ready to shoot"
+      ]
+    }
+  ],
+  "halt_conditions": [
+    {
+      "condition": "market_awareness_level missing",
+      "error": "[BLOCKING ERROR: marketing-angles — market_awareness_level required]"
+    },
+    {
+      "condition": "07-brand-voice.json not found at brand_voice_ref path",
+      "error": "[BLOCKING ERROR: marketing-angles — 07-brand-voice.json required]"
+    },
+    {
+      "condition": "new_mechanism_name missing",
+      "error": "[BLOCKING ERROR: marketing-angles — new_mechanism_name required]"
+    },
+    {
+      "condition": "top_10_angles count < 10",
+      "error": "[BLOCKING ERROR: marketing-angles — 10 angles required]"
+    },
+    {
+      "condition": "angle_library_30 count < 30",
+      "error": "[BLOCKING ERROR: marketing-angles — 30 angles required]"
+    },
+    {
+      "condition": "PHASE-1.5-OUTPUT.md not generated",
+      "error": "[BLOCKING ERROR: marketing-angles — final output file missing]"
+    },
+    {
+      "condition": "Skills 06 or 07 outputs not found",
+      "error": "[BLOCKING ERROR: Skill 08 requires Skills 06+07 outputs]"
+    }
+  ],
+  "fatal_errors": [
+    "Any angle deployed at wrong awareness level",
+    "Mechanism name uses a banned word from 07-brand-voice.json",
+    "Recycling system has fewer than 7 formats",
+    "30-angle library has fewer than 30 angles",
+    "Launch sequence missing Day 27-30 specifics",
+    "Angle stacking uses more than 2 hooks in first 3 seconds",
+    "Hooks or Value Stack produced (belongs to Skill 05 only)"
+  ]
+}

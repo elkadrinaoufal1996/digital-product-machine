@@ -1,0 +1,412 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "skill": "07-brand-voice",
+  "version": "1.0.0",
+  "description": "Output schema for Skill 07 — Brand Voice. All fields required. No null values permitted. Written to phase-1-5/outputs/07-brand-voice.json as pure JSON.",
+  "output_path": "phase-1-5/outputs/07-brand-voice.json",
+  "required": [
+    "selected_voice_archetype",
+    "nesb_voice_calibration",
+    "banned_words",
+    "power_words_by_emotion",
+    "sentence_architecture",
+    "tactile_realism_markers",
+    "platform_voice_adaptation",
+    "headline_formulas",
+    "cta_copy",
+    "tactile_realism_copy"
+  ],
+  "properties": {
+    "selected_voice_archetype": {
+      "type": "object",
+      "description": "The single archetype selected from the 5-archetype matrix. Chosen by mapping dominant_emotion + psychographic.",
+      "required": ["name", "tone_descriptors", "sentence_structure_rule", "psychological_trigger", "niche_rationale"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "One of: Scientific Authority (Caples) | Results-Oriented Mentorship | Conversational Intimacy (Halbert) | Poetic / Sensory Realism | Playful & Energetic",
+          "enum": [
+            "Scientific Authority (Caples)",
+            "Results-Oriented Mentorship",
+            "Conversational Intimacy (Halbert)",
+            "Poetic / Sensory Realism",
+            "Playful & Energetic"
+          ]
+        },
+        "tone_descriptors": {
+          "type": "array",
+          "description": "Exactly 3 adjectives that define the voice tone.",
+          "items": { "type": "string" },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "sentence_structure_rule": {
+          "type": "string",
+          "description": "One-line rule governing sentence construction for this archetype."
+        },
+        "psychological_trigger": {
+          "type": "string",
+          "description": "The primary psychological mechanism this archetype activates in the reader."
+        },
+        "niche_rationale": {
+          "type": "string",
+          "description": "2-3 sentences explaining why this archetype fits this specific niche and persona."
+        }
+      }
+    },
+    "nesb_voice_calibration": {
+      "type": "object",
+      "description": "NESB (New / Easy / Safe / Big) framework applied to this niche at this price point.",
+      "required": ["new_framing", "easy_framing", "safe_framing", "big_framing"],
+      "properties": {
+        "new_framing": {
+          "type": "string",
+          "description": "How to frame novelty without arrogance. Use 'stumbled on' / 'discovered by accident' language. Never 'revolutionary' or 'breakthrough'."
+        },
+        "easy_framing": {
+          "type": "string",
+          "description": "Not-statement + Even-If template filled for this niche. Format: 'It's not X. It's not Y. It's [mechanism]. [Goal] — even if [biggest objection].'"
+        },
+        "safe_framing": {
+          "type": "string",
+          "description": "Risk language and assurance phrasing adjacent to any risk claim. Include guarantee language calibrated to price_point."
+        },
+        "big_framing": {
+          "type": "string",
+          "description": "Transformation scale matched to price_point. $17=quick win, $27=habit shift, $37=system change, $47=identity-level transformation."
+        }
+      }
+    },
+    "banned_words": {
+      "type": "object",
+      "description": "40 words across 4 categories that must never appear in any output. Minimum 10 per category.",
+      "required": ["corporate_verbs", "abstract_nouns", "vague_adjectives", "transition_fillers"],
+      "properties": {
+        "corporate_verbs": {
+          "type": "array",
+          "description": "10 corporate action verbs to ban. Replace with Anglo-Saxon equivalents.",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["delve", "leverage", "foster", "ignite", "empower", "uncover", "unleash", "underscore", "optimize", "streamline"]
+        },
+        "abstract_nouns": {
+          "type": "array",
+          "description": "10 abstract conceptual nouns to ban. Replace with concrete specifics.",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["tapestry", "landscape", "beacon", "symphony", "realm", "journey", "roadmap", "synergy", "ecosystem", "paradigm"]
+        },
+        "vague_adjectives": {
+          "type": "array",
+          "description": "10 vague quality adjectives to ban. Replace with measurable descriptors.",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["cutting-edge", "seamless", "robust", "future-ready", "multifaceted", "pivotal", "dynamic", "transformative", "revolutionary", "game-changer"]
+        },
+        "transition_fillers": {
+          "type": "array",
+          "description": "10 filler transition phrases to ban. Replace with direct verbal bridges.",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["furthermore", "moreover", "additionally", "in today's digital age", "let's dive in", "but here's the kicker", "it is important to note", "ultimately", "in conclusion", "generally speaking"]
+        }
+      }
+    },
+    "power_words_by_emotion": {
+      "type": "object",
+      "description": "50 power words across 5 emotional categories (10 each). dominant_emotion category applied at 3x frequency.",
+      "required": ["urgency", "trust", "curiosity", "exclusivity", "transformation"],
+      "properties": {
+        "urgency": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["now", "today", "ends", "limited", "fast", "immediate", "final", "expiring", "quick", "deadline"]
+        },
+        "trust": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["guaranteed", "safe", "predictable", "proven", "secure", "exact", "verified", "authentic", "certified", "official"]
+        },
+        "curiosity": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["secret", "discover", "reveal", "little-known", "truth", "hidden", "behind-the-scenes", "why", "confession", "uncover"]
+        },
+        "exclusivity": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["only", "exclusive", "proprietary", "private", "insider", "elite", "restricted", "invitation", "member", "patented"]
+        },
+        "transformation": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 10,
+          "maxItems": 10,
+          "example": ["breakthrough", "imagine", "shift", "grow", "turn", "build", "fix", "escape", "rebuild", "master"]
+        }
+      }
+    },
+    "sentence_architecture": {
+      "type": "object",
+      "description": "Structural rules governing all copy written in this brand voice.",
+      "required": ["max_paragraph_sentences", "rhythm_rule", "vocabulary_rule", "emphasis_rule"],
+      "properties": {
+        "max_paragraph_sentences": {
+          "type": "integer",
+          "description": "Maximum sentences per paragraph. Fixed at 3.",
+          "const": 3
+        },
+        "rhythm_rule": {
+          "type": "string",
+          "description": "Rule for alternating sentence lengths. Short (1-5 words) = impact. Long = emotional runway. Never 3+ same-length in a row."
+        },
+        "vocabulary_rule": {
+          "type": "string",
+          "description": "Anglo-Saxon dominance principle. Simple words first. Latinate words only at $37-$47 for premium justification."
+        },
+        "emphasis_rule": {
+          "type": "string",
+          "description": "Bold emotional trigger words only. Italics for internal reader dialogue. Never bold full sentences. Left-align body copy only."
+        }
+      }
+    },
+    "tactile_realism_markers": {
+      "type": "array",
+      "description": "10 micro-opinion openers — paste-ready to inject human voice and anti-AI texture into copy.",
+      "items": { "type": "string", "minLength": 10 },
+      "minItems": 10,
+      "maxItems": 10,
+      "example": [
+        "Honestly, I didn't expect this to work, but...",
+        "Here's the part most people don't say out loud:",
+        "If we're being real for a second...",
+        "This might sound weird, but...",
+        "Let me show you what this actually looks like in real life:",
+        "Here's the uncomfortable truth:",
+        "The part nobody puts on their sales page is...",
+        "I'm not going to pretend this is magic — here's the deal:",
+        "On paper, this looks simple. But in reality...",
+        "Here's where most people lose months without realizing it:"
+      ]
+    },
+    "platform_voice_adaptation": {
+      "type": "object",
+      "description": "Voice rules and niche-specific examples for each of the 4 primary platforms.",
+      "required": ["tiktok", "instagram_caption", "email_subject", "sales_page_headline"],
+      "properties": {
+        "tiktok": {
+          "type": "object",
+          "required": ["hook_structure", "tone", "example"],
+          "properties": {
+            "hook_structure": {
+              "type": "string",
+              "description": "First 1-3 second hook formula. Format: [Uncomfortable truth] → [micro-story] → [pitch]"
+            },
+            "tone": {
+              "type": "string",
+              "description": "Voice tone for this platform. Raw, first-person, relatable, direct."
+            },
+            "example": {
+              "type": "string",
+              "description": "Filled example hook written for the specific validated_niche."
+            }
+          }
+        },
+        "instagram_caption": {
+          "type": "object",
+          "required": ["format", "tone", "example"],
+          "properties": {
+            "format": {
+              "type": "string",
+              "description": "Caption structure: hook → body → lesson → CTA. Social SEO via natural-language keywords."
+            },
+            "tone": {
+              "type": "string",
+              "description": "Polished but human. Conversational. Ends with save/share prompt."
+            },
+            "example": {
+              "type": "string",
+              "description": "Filled caption example written for the specific validated_niche."
+            }
+          }
+        },
+        "email_subject": {
+          "type": "object",
+          "required": ["length_rule", "tone", "example"],
+          "properties": {
+            "length_rule": {
+              "type": "string",
+              "description": "4-6 words maximum. Curiosity without clickbait.",
+              "const": "4-6 words maximum"
+            },
+            "tone": {
+              "type": "string",
+              "description": "1-to-1 friend letter tone. Verbal bridges in body: 'That said,' / 'But here's the thing,' / 'The upshot is...'"
+            },
+            "example": {
+              "type": "string",
+              "description": "Filled subject line example for the specific validated_niche."
+            }
+          }
+        },
+        "sales_page_headline": {
+          "type": "object",
+          "required": ["formula", "example"],
+          "properties": {
+            "formula": {
+              "type": "string",
+              "description": "4 U's framework filled. Template: 'Get [Ultra-Specific Benefit] in [Urgent Timeframe] with [Unique Mechanism] — Even If [Biggest Objection].'",
+              "const": "Get [Ultra-Specific Benefit] in [Urgent Timeframe] with [Unique Mechanism] — Even If [Biggest Objection]."
+            },
+            "example": {
+              "type": "string",
+              "description": "Filled 4 U's headline written for the specific validated_niche."
+            }
+          }
+        }
+      }
+    },
+    "headline_formulas": {
+      "type": "array",
+      "description": "Exactly 10 headline formulas, each with a niche-specific filled example. HALT if fewer than 10.",
+      "items": {
+        "type": "object",
+        "required": ["name", "template", "mechanism", "niche_example"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the headline formula (e.g. 'They Laughed', 'How I...', etc.)"
+          },
+          "template": {
+            "type": "string",
+            "description": "Fill-in-the-blank template with [BRACKET] placeholders."
+          },
+          "mechanism": {
+            "type": "string",
+            "description": "The psychological mechanism this formula activates."
+          },
+          "niche_example": {
+            "type": "string",
+            "description": "Completed headline written for the exact validated_niche. No brackets remaining."
+          }
+        }
+      },
+      "minItems": 10,
+      "maxItems": 10,
+      "halt_if_below": 10,
+      "halt_message": "[BLOCKING ERROR: brand-voice — 10 headline formulas required]"
+    },
+    "cta_copy": {
+      "type": "object",
+      "description": "Call-to-action copy system. Button text, halo copy, urgency framing, and absolute prohibitions.",
+      "required": ["button_text_options", "surrounding_assurance", "urgency_framing", "never_use"],
+      "properties": {
+        "button_text_options": {
+          "type": "array",
+          "description": "5 first-person declaration button texts. Start with 'Get my' / 'Send me' / 'Grab my' / 'Show me' / 'Give me'.",
+          "items": { "type": "string" },
+          "minItems": 5,
+          "maxItems": 5,
+          "example": [
+            "Get my [specific outcome]",
+            "Send me the [deliverable]",
+            "Grab your [product name]",
+            "See the [transformation]",
+            "Give me access"
+          ]
+        },
+        "surrounding_assurance": {
+          "type": "string",
+          "description": "Halo copy adjacent to (not below) the button. Required components: 100% Secure Checkout + Instant Access + 30-Day Guarantee."
+        },
+        "urgency_framing": {
+          "type": "string",
+          "description": "Time-bound + specific quantity. Format: 'Only [X] copies at this price' or 'Offer ends [specific day, time, timezone].'"
+        },
+        "never_use": {
+          "type": "array",
+          "description": "Absolute prohibitions on button text. Hard-coded. Do not override.",
+          "items": { "type": "string" },
+          "const": ["Submit", "Sign Up", "Learn", "Buy"]
+        }
+      }
+    },
+    "tactile_realism_copy": {
+      "type": "object",
+      "description": "Sensory translation system converting abstract benefits into physical, felt micro-scenes.",
+      "required": ["sensory_benefits", "specificity_rule", "vulnerability_opener"],
+      "properties": {
+        "sensory_benefits": {
+          "type": "array",
+          "description": "Minimum 5 abstract-to-tactile translations. Each translation must be under 15 words and use a sensory scene.",
+          "items": {
+            "type": "object",
+            "required": ["abstract_benefit", "tactile_translation"],
+            "properties": {
+              "abstract_benefit": {
+                "type": "string",
+                "description": "The generic benefit as it would appear in weak copy (e.g. 'save time')."
+              },
+              "tactile_translation": {
+                "type": "string",
+                "description": "The physical, sensory scene version. Under 15 words. Uses body, sound, sight, or feeling.",
+                "example": "Closing your laptop while the sun is still up"
+              }
+            }
+          },
+          "minItems": 5
+        },
+        "specificity_rule": {
+          "type": "string",
+          "description": "Always use exact numbers, never rounded. '48,245 customers' not 'nearly 50,000'. 'Last Tuesday at 11:47 PM' not 'recently'."
+        },
+        "vulnerability_opener": {
+          "type": "string",
+          "description": "A niche-specific first-person vulnerability sentence that opens copy with human admission. Creates immediate trust and relatability."
+        }
+      }
+    }
+  },
+  "fatal_errors": [
+    {
+      "condition": "Any banned word present in generated copy",
+      "error": "[BLOCKING ERROR: brand-voice — banned word detected: {word}]"
+    },
+    {
+      "condition": "Paragraph contains more than 3 sentences without a line break",
+      "error": "[BLOCKING ERROR: brand-voice — paragraph exceeds 3-sentence limit]"
+    },
+    {
+      "condition": "CTA button uses 'Submit', 'Sign Up', 'Buy', or 'Learn'",
+      "error": "[BLOCKING ERROR: brand-voice — prohibited CTA button text detected]"
+    },
+    {
+      "condition": "Any claim present without specific data or tactile translation",
+      "error": "[BLOCKING ERROR: brand-voice — abstract claim without data or tactile anchor]"
+    },
+    {
+      "condition": "Verbatim samples not referenced in voice calibration output",
+      "error": "[BLOCKING ERROR: brand-voice — verbatim samples unused in voice calibration]"
+    },
+    {
+      "condition": "Hooks or Value Stack produced (belongs to Skill 05 only)",
+      "error": "[BLOCKING ERROR: brand-voice — hooks/Value Stack out of scope. Delegate to Skill 05]"
+    },
+    {
+      "condition": "headline_formulas array contains fewer than 10 items",
+      "error": "[BLOCKING ERROR: brand-voice — 10 headline formulas required]"
+    }
+  ]
+}

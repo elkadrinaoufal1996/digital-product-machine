@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "skill": "07-brand-voice",
+  "version": "1.0.0",
+  "description": "Input schema for Skill 07 — Brand Voice. All fields required unless noted. HALT conditions enforced before execution.",
+  "required": [
+    "validated_niche",
+    "price_point",
+    "dominant_emotion",
+    "dominant_persona",
+    "top_3_uvp",
+    "verbatim_samples",
+    "competitor_names",
+    "visual_identity_ref"
+  ],
+  "properties": {
+    "validated_niche": {
+      "type": "string",
+      "description": "Validated niche string from PHASE-1-OUTPUT.md. Must match exactly.",
+      "minLength": 3
+    },
+    "price_point": {
+      "type": "integer",
+      "description": "Product price point in USD. Controls NESB transformation scale.",
+      "enum": [17, 27, 37, 47]
+    },
+    "dominant_emotion": {
+      "type": "string",
+      "description": "Primary emotional driver identified for this niche audience.",
+      "enum": ["fear", "desire", "frustration", "aspiration", "trust", "exclusivity"]
+    },
+    "dominant_persona": {
+      "type": "object",
+      "description": "Primary buyer persona as identified in Skill 04.",
+      "required": ["age_range", "gender", "psychographic"],
+      "properties": {
+        "age_range": {
+          "type": "string",
+          "description": "e.g. '28-42' or '35-50'",
+          "example": "28-42"
+        },
+        "gender": {
+          "type": "string",
+          "description": "e.g. 'female', 'male', 'non-binary', 'skews female'",
+          "example": "skews female"
+        },
+        "psychographic": {
+          "type": "string",
+          "description": "One of: anxious overachiever | aspirational | burnt-out | cautious buyer | status seeker | anti-conformist | other (specify)",
+          "example": "anxious overachiever"
+        }
+      }
+    },
+    "top_3_uvp": {
+      "type": "array",
+      "description": "Top 3 Unique Value Propositions from Phase 1 output. Exactly 3 strings.",
+      "items": { "type": "string", "minLength": 5 },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "verbatim_samples": {
+      "type": "array",
+      "description": "Exact persona quotes sourced from Skill 04 research. MINIMUM 3 — skill HALTS if fewer.",
+      "items": {
+        "type": "object",
+        "required": ["text", "source_url", "source_date"],
+        "properties": {
+          "text": {
+            "type": "string",
+            "description": "Exact verbatim quote from real persona. No paraphrasing.",
+            "minLength": 10
+          },
+          "source_url": {
+            "type": "string",
+            "description": "URL where the quote was found (Reddit, YouTube comment, Amazon review, forum, etc.)",
+            "format": "uri"
+          },
+          "source_date": {
+            "type": "string",
+            "description": "ISO 8601 date string. e.g. 2025-03-14",
+            "format": "date"
+          }
+        }
+      },
+      "minItems": 3,
+      "halt_if_below": 3,
+      "halt_message": "[BLOCKING ERROR: brand-voice — minimum 3 verbatim samples required from Skill 04]"
+    },
+    "competitor_names": {
+      "type": "array",
+      "description": "List of direct competitor brand or product names to differentiate voice against.",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "visual_identity_ref": {
+      "type": "string",
+      "description": "Relative file path to the 06-visual-identity.json output. Skill HALTS if file not found.",
+      "example": "phase-1-5/outputs/06-visual-identity.json",
+      "halt_if_missing": true,
+      "halt_message": "[BLOCKING ERROR: brand-voice — 06-visual-identity.json required as input]"
+    }
+  },
+  "halt_conditions": [
+    {
+      "condition": "verbatim_samples.length < 3",
+      "error": "[BLOCKING ERROR: brand-voice — minimum 3 verbatim samples required from Skill 04]"
+    },
+    {
+      "condition": "visual_identity_ref file not found on disk",
+      "error": "[BLOCKING ERROR: brand-voice — 06-visual-identity.json required as input]"
+    }
+  ]
+}

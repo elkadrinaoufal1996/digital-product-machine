@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "marketing-angles — Input Schema",
+  "description": "Input for Skill 08: marketing-angles. Final skill of Phase 1.5. Requires outputs from Skills 06 and 07.",
+  "type": "object",
+  "required": [
+    "validated_niche",
+    "price_point",
+    "dominant_emotion",
+    "dominant_persona",
+    "top_3_uvp",
+    "competitor_names",
+    "market_awareness_level",
+    "visual_identity_ref",
+    "brand_voice_ref",
+    "competitor_dominant_angle",
+    "new_mechanism_name"
+  ],
+  "properties": {
+    "validated_niche": {
+      "type": "string",
+      "description": "The validated niche string from Phase 1 positioning output."
+    },
+    "price_point": {
+      "type": "string",
+      "enum": ["17", "27", "37", "47"],
+      "description": "Impulse price point for the offer. Determines NESB Big validation standard."
+    },
+    "dominant_emotion": {
+      "type": "string",
+      "enum": ["fear", "desire", "frustration", "aspiration", "trust", "exclusivity"],
+      "description": "The single dominant emotion driving the target audience's buying decision."
+    },
+    "dominant_persona": {
+      "type": "object",
+      "description": "Primary buyer persona used to fill all angle hooks and scripts.",
+      "required": ["age_range", "gender", "psychographic"],
+      "properties": {
+        "age_range": {
+          "type": "string",
+          "description": "e.g. '28-42'"
+        },
+        "gender": {
+          "type": "string",
+          "description": "e.g. 'female', 'male', 'mixed'"
+        },
+        "psychographic": {
+          "type": "string",
+          "description": "One-sentence psychographic summary. e.g. 'Overwhelmed side-hustler who tried 3 courses and gave up.'"
+        }
+      }
+    },
+    "top_3_uvp": {
+      "type": "array",
+      "description": "Exactly 3 unique value propositions from Phase 1 positioning.",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "string"
+      }
+    },
+    "competitor_names": {
+      "type": "array",
+      "description": "List of direct competitors to audit in Step 6 Competitive Gap.",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "market_awareness_level": {
+      "type": "string",
+      "enum": [
+        "unaware",
+        "problem_aware",
+        "solution_aware",
+        "product_aware",
+        "most_aware"
+      ],
+      "description": "Current awareness level of the cold audience. Determines which angle archetypes are deployed first. HALT if missing → [BLOCKING ERROR: marketing-angles — market_awareness_level required]"
+    },
+    "visual_identity_ref": {
+      "type": "string",
+      "description": "File path to 06-visual-identity.json output. e.g. 'phase-1-5/outputs/06-visual-identity.json'. Used for brand colour and style alignment in creative hooks."
+    },
+    "brand_voice_ref": {
+      "type": "string",
+      "description": "File path to 07-brand-voice.json output. e.g. 'phase-1-5/outputs/07-brand-voice.json'. HALT if file not found at this path → [BLOCKING ERROR: marketing-angles — 07-brand-voice.json required]"
+    },
+    "competitor_dominant_angle": {
+      "type": "string",
+      "description": "One-sentence description of the angle pattern that ALL competitors in the niche are using. e.g. 'All competitors lead with income screenshots and hustle-culture positioning.'"
+    },
+    "new_mechanism_name": {
+      "type": "string",
+      "description": "Proprietary mechanism name established in Phase 1 positioning. e.g. 'The 3-Day Profit Protocol'. HALT if missing → [BLOCKING ERROR: marketing-angles — new_mechanism_name required from Phase 1]"
+    }
+  },
+  "halt_conditions": [
+    {
+      "field": "market_awareness_level",
+      "condition": "missing or null",
+      "error": "[BLOCKING ERROR: marketing-angles — market_awareness_level required]"
+    },
+    {
+      "field": "brand_voice_ref",
+      "condition": "file not found at provided path",
+      "error": "[BLOCKING ERROR: marketing-angles — 07-brand-voice.json required]"
+    },
+    {
+      "field": "new_mechanism_name",
+      "condition": "missing or null",
+      "error": "[BLOCKING ERROR: marketing-angles — new_mechanism_name required from Phase 1]"
+    }
+  ]
+}

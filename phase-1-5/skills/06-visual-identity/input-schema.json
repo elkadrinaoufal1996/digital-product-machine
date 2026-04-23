@@ -1,0 +1,71 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 06 — visual-identity Input",
+  "description": "Fields extracted from PHASE-1-OUTPUT.md required to generate the visual brand system",
+  "type": "object",
+  "required": [
+    "validated_niche",
+    "dominant_persona",
+    "dominant_emotion",
+    "positioning",
+    "price_point",
+    "top_3_uvp",
+    "competitor_names"
+  ],
+  "properties": {
+    "validated_niche": {
+      "type": "string",
+      "description": "Exact niche name as validated in Phase 1 (e.g. 'ADHD productivity for remote workers')"
+    },
+    "dominant_persona": {
+      "type": "object",
+      "required": ["age_range", "gender", "psychographic"],
+      "properties": {
+        "age_range": {
+          "type": "string",
+          "description": "Age range of dominant buyer (e.g. '28-42')"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Gender of dominant buyer (e.g. 'female', 'male', 'non-binary', 'mixed')"
+        },
+        "psychographic": {
+          "type": "string",
+          "description": "Single psychographic label from Phase 1 persona analysis (e.g. 'anxious overachiever', 'frustrated side-hustler')"
+        }
+      }
+    },
+    "dominant_emotion": {
+      "type": "string",
+      "enum": ["fear", "desire", "frustration", "aspiration", "trust", "exclusivity"],
+      "description": "Primary purchase-trigger emotion driving buyer behavior in this niche"
+    },
+    "positioning": {
+      "type": "string",
+      "description": "Exact one-sentence positioning statement from Skill 05 output"
+    },
+    "price_point": {
+      "type": "integer",
+      "enum": [17, 27, 37, 47],
+      "description": "Product price point in USD — determines typography tier and trust-signal intensity"
+    },
+    "top_3_uvp": {
+      "type": "array",
+      "description": "Top 3 unique value propositions from Phase 1 validation (exact strings)",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "string"
+      }
+    },
+    "competitor_names": {
+      "type": "array",
+      "description": "List of 1-5 direct competitor product or brand names for competitive visual audit",
+      "minItems": 1,
+      "maxItems": 5,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
