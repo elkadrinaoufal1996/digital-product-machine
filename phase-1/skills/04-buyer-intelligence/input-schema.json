@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 04 Input",
+  "description": "Expects 03-xray.json with final niche, gap analysis, and 3 ranked UVZs.",
+  "type": "object",
+  "required": ["meta", "final_niche", "gap_analysis", "uvz_ranked"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["skill", "web_search_confirmed"],
+      "properties": {
+        "skill": { "type": "string", "const": "03-competitor-xray" },
+        "web_search_confirmed": { "type": "boolean", "const": true }
+      }
+    },
+    "final_niche": {
+      "type": "object",
+      "required": ["niche_id", "niche_name", "selected_ebook_idea"],
+      "properties": {
+        "niche_id": { "type": "string" },
+        "niche_name": { "type": "string" },
+        "selected_ebook_idea": { "type": "object" }
+      }
+    },
+    "gap_analysis": {
+      "type": "object",
+      "required": ["G4_emotionnel", "G6_resultat"],
+      "properties": {
+        "G1_promesse": { "type": "object" },
+        "G2_audience": { "type": "object" },
+        "G3_format": { "type": "object" },
+        "G4_emotionnel": { "type": "object" },
+        "G5_influence": { "type": "object" },
+        "G6_resultat": { "type": "object" }
+      }
+    },
+    "uvz_ranked": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["uvz_rank", "uvz_label", "differentiation_statement"]
+      }
+    }
+  }
+}

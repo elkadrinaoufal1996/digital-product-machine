@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 01 Input — Market Discovery",
+  "description": "CLI invocation input. Only the market parameter is accepted.",
+  "type": "object",
+  "required": ["market"],
+  "properties": {
+    "market": {
+      "type": "string",
+      "enum": ["US"],
+      "description": "Target market. Only US supported in Phase 1.",
+      "default": "US"
+    }
+  },
+  "additionalProperties": false
+}

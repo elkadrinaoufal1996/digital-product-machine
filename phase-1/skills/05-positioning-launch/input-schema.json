@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 05 Input",
+  "description": "Requires 3 input files simultaneously: 02-scored.json, 03-xray.json, 04-personas.json",
+  "type": "object",
+  "required": ["scored", "xray", "personas"],
+  "properties": {
+    "scored": {
+      "type": "object",
+      "description": "Contents of 02-scored.json",
+      "required": ["meta", "niche_shortlist"],
+      "properties": {
+        "meta": { "type": "object", "properties": { "skill": { "type": "string", "const": "02-niche-idea-scorer" } } },
+        "niche_shortlist": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["niche_id", "niche_name", "matrix_a_score", "tier_demand", "ebook_ideas"],
+            "properties": {
+              "niche_id": { "type": "string" },
+              "niche_name": { "type": "string" },
+              "matrix_a_score": { "type": "number" },
+              "tier_demand": { "type": "string" },
+              "ebook_ideas": { "type": "array", "minItems": 3 }
+            }
+          }
+        }
+      }
+    },
+    "xray": {
+      "type": "object",
+      "description": "Contents of 03-xray.json",
+      "required": ["meta", "final_niche", "gap_analysis", "uvz_ranked"],
+      "properties": {
+        "meta": { "type": "object", "properties": { "skill": { "type": "string", "const": "03-competitor-xray" } } },
+        "final_niche": { "type": "object", "required": ["niche_name", "selected_ebook_idea"] },
+        "gap_analysis": { "type": "object", "required": ["G4_emotionnel", "G6_resultat"] },
+        "uvz_ranked": { "type": "array", "minItems": 3, "maxItems": 3 }
+      }
+    },
+    "personas": {
+      "type": "object",
+      "description": "Contents of 04-personas.json",
+      "required": ["meta", "personas"],
+      "properties": {
+        "meta": { "type": "object", "properties": { "skill": { "type": "string", "const": "04-buyer-intelligence" } } },
+        "personas": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["persona_rank", "persona_label", "consciousness_level", "dominant_emotion", "verbatim_bank", "verbatim_glossary", "influence_collab_dimension"]
+          }
+        }
+      }
+    }
+  }
+}

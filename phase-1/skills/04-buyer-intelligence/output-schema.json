@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 04 Output — 04-personas.json",
+  "description": "3 empirical buyer personas with verbatim banks, consciousness levels, emotions, glossaries, and influence collab dimensions. Input for Skill 05.",
+  "type": "object",
+  "required": ["meta", "personas"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["skill", "input_file", "generated_at", "niche", "web_search_confirmed", "data_sources_records"],
+      "properties": {
+        "skill": { "type": "string", "const": "04-buyer-intelligence" },
+        "input_file": { "type": "string", "const": "03-xray.json" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "niche": { "type": "string" },
+        "web_search_confirmed": { "type": "boolean" },
+        "data_sources_records": {
+          "type": "object",
+          "required": ["reddit_posts", "amazon_reviews", "tiktok_comments"],
+          "properties": {
+            "reddit_posts": { "type": "integer", "minimum": 1 },
+            "amazon_reviews": { "type": "integer", "minimum": 1 },
+            "tiktok_comments": { "type": "integer", "minimum": 1 }
+          }
+        }
+      }
+    },
+    "personas": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["persona_rank", "persona_label", "situational_identity", "consciousness_level", "dominant_emotion", "secondary_emotions", "verbatim_bank", "verbatim_glossary", "influence_collab_dimension", "uvz_alignment"],
+        "properties": {
+          "persona_rank": { "type": "integer", "minimum": 1, "maximum": 3 },
+          "persona_label": { "type": "string" },
+          "situational_identity": {
+            "type": "object",
+            "required": ["life_situation", "trigger_moment", "decision_context"],
+            "properties": {
+              "life_situation": { "type": "string" },
+              "trigger_moment": { "type": "string" },
+              "decision_context": { "type": "string" }
+            }
+          },
+          "consciousness_level": {
+            "type": "object",
+            "required": ["level", "level_name", "justification_verbatim"],
+            "properties": {
+              "level": { "type": "string", "enum": ["L1", "L2", "L3", "L4", "L5"] },
+              "level_name": { "type": "string" },
+              "justification_verbatim": {
+                "type": "object",
+                "required": ["quote", "source", "url"],
+                "properties": {
+                  "quote": { "type": "string" },
+                  "source": { "type": "string", "enum": ["SOURCE_A", "SOURCE_B", "SOURCE_C"] },
+                  "url": { "type": "string" }
+                }
+              }
+            }
+          },
+          "dominant_emotion": {
+            "type": "object",
+            "required": ["emotion", "justification_verbatim"],
+            "properties": {
+              "emotion": { "type": "string", "enum": ["FEAR_MISSING_OUT", "SHAME", "HOPE", "FRUSTRATION", "ASPIRATION"] },
+              "justification_verbatim": {
+                "type": "object",
+                "required": ["quote", "source", "url"],
+                "properties": {
+                  "quote": { "type": "string" },
+                  "source": { "type": "string" },
+                  "url": { "type": "string" }
+                }
+              }
+            }
+          },
+          "secondary_emotions": {
+            "type": "array",
+            "items": { "type": "string", "enum": ["FEAR_MISSING_OUT", "SHAME", "HOPE", "FRUSTRATION", "ASPIRATION"] }
+          },
+          "verbatim_bank": {
+            "type": "array",
+            "minItems": 5,
+            "items": {
+              "type": "object",
+              "required": ["quote", "source", "url", "date"],
+              "properties": {
+                "quote": { "type": "string" },
+                "source": { "type": "string", "enum": ["SOURCE_A", "SOURCE_B", "SOURCE_C"] },
+                "url": { "type": "string", "format": "uri" },
+                "date": { "type": "string" }
+              }
+            }
+          },
+          "verbatim_glossary": {
+            "type": "array",
+            "minItems": 10,
+            "maxItems": 10,
+            "items": { "type": "string" }
+          },
+          "influence_collab_dimension": {
+            "type": "object",
+            "required": ["content_consumption_platform", "creator_type_trusted", "discovery_trigger", "content_gap_for_creator", "estimated_collab_value", "collab_rationale"],
+            "properties": {
+              "content_consumption_platform": { "type": "string" },
+              "creator_type_trusted": { "type": "string" },
+              "discovery_trigger": { "type": "string" },
+              "content_gap_for_creator": { "type": "string" },
+              "estimated_collab_value": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"] },
+              "collab_rationale": { "type": "string" }
+            }
+          },
+          "uvz_alignment": {
+            "type": "object",
+            "required": ["primary_uvz_rank", "alignment_rationale"],
+            "properties": {
+              "primary_uvz_rank": { "type": "integer", "minimum": 1, "maximum": 3 },
+              "alignment_rationale": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 05 Output — PHASE-1-OUTPUT.md",
+  "description": "Final Phase 1 deliverable. Single markdown file with all 7 sections. No further processing required.",
+  "type": "object",
+  "properties": {
+    "output_file": {
+      "type": "string",
+      "const": "PHASE-1-OUTPUT.md",
+      "description": "Single markdown file written to phase-1/ root"
+    },
+    "required_sections": {
+      "type": "array",
+      "description": "All 7 sections must be present in the output file",
+      "items": { "type": "string" },
+      "const": [
+        "1. NICHE & EBOOK IDEA",
+        "2. TOP 3 UVZS",
+        "3. PROMISE ARCHITECTURE",
+        "4. VALUE STACK",
+        "5. HOOKS MASTER",
+        "6. J1-J30 LAUNCH PLAN",
+        "7. CONFIDENCE SCORE /10"
+      ]
+    },
+    "hooks_count": {
+      "type": "object",
+      "description": "Expected hook counts for quality validation",
+      "properties": {
+        "persona_hooks": { "type": "integer", "const": 9 },
+        "uvz_hooks": { "type": "integer", "const": 9 },
+        "total": { "type": "integer", "const": 18 }
+      }
+    },
+    "confidence_score": {
+      "type": "object",
+      "properties": {
+        "min": { "type": "number", "const": 0 },
+        "max": { "type": "number", "const": 10 },
+        "launch_threshold": { "type": "number", "const": 8 }
+      }
+    }
+  }
+}

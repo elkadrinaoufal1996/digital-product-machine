@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 03 Output — 03-xray.json",
+  "description": "1 final niche + 6-gap analysis + 3 ranked UVZs. Input for Skills 04 and 05.",
+  "type": "object",
+  "required": ["meta", "final_niche", "gap_analysis", "uvz_ranked"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["skill", "input_file", "generated_at", "web_search_confirmed", "niche_selection_reason"],
+      "properties": {
+        "skill": { "type": "string", "const": "03-competitor-xray" },
+        "input_file": { "type": "string", "const": "02-scored.json" },
+        "generated_at": { "type": "string", "format": "date-time" },
+        "web_search_confirmed": { "type": "boolean" },
+        "niche_selection_reason": { "type": "string" }
+      }
+    },
+    "final_niche": {
+      "type": "object",
+      "required": ["niche_id", "niche_name", "matrix_a_score", "selected_ebook_idea"],
+      "properties": {
+        "niche_id": { "type": "string" },
+        "niche_name": { "type": "string" },
+        "matrix_a_score": { "type": "number" },
+        "selected_ebook_idea": {
+          "type": "object",
+          "required": ["idea_id", "working_title", "matrix_b_score"],
+          "properties": {
+            "idea_id": { "type": "string" },
+            "working_title": { "type": "string" },
+            "matrix_b_score": { "type": "number" }
+          }
+        }
+      }
+    },
+    "gap_analysis": {
+      "type": "object",
+      "required": ["G1_promesse", "G2_audience", "G3_format", "G4_emotionnel", "G5_influence", "G6_resultat"],
+      "properties": {
+        "G1_promesse": { "$ref": "#/definitions/gap_entry" },
+        "G2_audience": { "$ref": "#/definitions/gap_entry" },
+        "G3_format": { "$ref": "#/definitions/gap_entry" },
+        "G4_emotionnel": { "$ref": "#/definitions/gap_entry" },
+        "G5_influence": { "$ref": "#/definitions/gap_entry" },
+        "G6_resultat": { "$ref": "#/definitions/gap_entry" }
+      }
+    },
+    "uvz_ranked": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["uvz_rank", "uvz_label", "gap_types_activated", "differentiation_statement", "competitor_bypassed", "penetrability_score", "penetrability_rationale", "evidence_sources"],
+        "properties": {
+          "uvz_rank": { "type": "integer", "minimum": 1, "maximum": 3 },
+          "uvz_label": { "type": "string" },
+          "gap_types_activated": { "type": "array", "items": { "type": "string", "enum": ["G1", "G2", "G3", "G4", "G5", "G6"] } },
+          "differentiation_statement": { "type": "string" },
+          "competitor_bypassed": { "type": "string" },
+          "penetrability_score": { "type": "string", "enum": ["HIGH", "MEDIUM", "LOW"] },
+          "penetrability_rationale": { "type": "string" },
+          "evidence_sources": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": ["source", "data_point", "url"],
+              "properties": {
+                "source": { "type": "string", "enum": ["SOURCE_A", "SOURCE_B", "SOURCE_C", "WEB_SEARCH"] },
+                "data_point": { "type": "string" },
+                "url": { "type": "string" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "gap_entry": {
+      "type": "object",
+      "required": ["status", "evidence"],
+      "properties": {
+        "status": { "type": "string", "enum": ["CONFIRMED", "PARTIAL", "ABSENT"] },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "data_point": { "type": "string" },
+              "url": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
