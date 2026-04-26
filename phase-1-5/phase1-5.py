@@ -16,6 +16,7 @@ Variables d'environnement requises (dans phase-1-5/.env):
 """
 
 import argparse
+import json
 import os
 import re
 import sys
@@ -239,6 +240,28 @@ def main():
 
     OUTPUTS_DIR.mkdir(exist_ok=True)
     print()
+
+    # ── STEP 0/4 : Phase-1 Handoff (MACHINE-READABLE → phase-1-output.json) ─
+    print(f"\n{BOLD}{CYAN}[STEP 0/4]{RESET} Running phase-1-handoff (convert.py)...")
+    print(f"  {'─' * 60}")
+    handoff_script = BASE_DIR / "skills" / "05b-handoff" / "convert.py"
+    handoff_result = subprocess.run(
+        [sys.executable, str(handoff_script)],
+        cwd=str(BASE_DIR),
+        capture_output=False,
+        check=False,
+    )
+    if handoff_result.returncode != 0:
+        log_error("Phase-1 handoff failed — PHASE-1-OUTPUT.md missing ## MACHINE-READABLE block or schema invalid")
+        sys.exit(1)
+
+    phase1_json_path = OUTPUTS_DIR / "phase-1-output.json"
+    if not phase1_json_path.exists():
+        log_error("phase-1-output.json not produced by convert.py")
+        sys.exit(1)
+
+    phase1_data = json.loads(phase1_json_path.read_text(encoding="utf-8"))
+    log_ok(f"phase-1-output.json loaded — niche='{phase1_data.get('validated_niche', '?')}' | confidence={phase1_data.get('confidence_score', '?')}/10")
 
     # ── STEP 1/4 : Scraper ───────────────────────────────────────────────────
     ok = run_step(

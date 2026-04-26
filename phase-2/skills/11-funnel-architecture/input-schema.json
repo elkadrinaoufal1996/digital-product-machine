@@ -1,0 +1,129 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 11 Input Schema",
+  "description": "Input validation for funnel-architecture. Requires Skill 09 psychology, Skill 10 architecture, and Phase 1.5 niche data.",
+  "type": "object",
+  "required": ["buyer_psychology", "page_architecture", "phase1_5_output"],
+  "additionalProperties": false,
+  "properties": {
+    "buyer_psychology": {
+      "type": "object",
+      "description": "Psychology analysis from Skill 09. Awareness level determines funnel type.",
+      "required": [
+        "buyer_state_analysis",
+        "aida_elements",
+        "objections_and_reversals",
+        "persuasion_mechanisms"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "buyer_state_analysis": {
+          "type": "object",
+          "required": ["awareness_level", "sophistication_level", "dominant_objection"],
+          "properties": {
+            "awareness_level": {
+              "type": "string",
+              "enum": ["TOFU", "MOFU", "BOFU"],
+              "description": "Primary driver of funnel type selection"
+            },
+            "sophistication_level": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Influences funnel complexity and scent matching depth"
+            },
+            "dominant_objection": {
+              "type": "string",
+              "description": "Primary objection to address in transition strategies"
+            }
+          }
+        },
+        "aida_elements": {
+          "type": "object",
+          "required": ["action_barriers"],
+          "properties": {
+            "action_barriers": {
+              "type": "array",
+              "description": "Barriers to purchase that inform abandonment recovery"
+            }
+          }
+        },
+        "objections_and_reversals": {
+          "type": "object",
+          "description": "Objections mapped to funnel transition touchpoints"
+        },
+        "persuasion_mechanisms": {
+          "type": "object",
+          "description": "Primary mechanisms informing urgency protocol selection"
+        }
+      }
+    },
+    "page_architecture": {
+      "type": "object",
+      "description": "Architecture from Skill 10. Sales page structure to integrate within funnel.",
+      "required": ["page_architecture", "mobile_first_design"],
+      "additionalProperties": true,
+      "properties": {
+        "page_architecture": {
+          "type": "object",
+          "required": ["block_sequence"],
+          "properties": {
+            "block_sequence": {
+              "type": "array",
+              "minItems": 9,
+              "maxItems": 9,
+              "description": "9-block sales page architecture from Skill 10"
+            }
+          }
+        },
+        "mobile_first_design": {
+          "type": "object",
+          "description": "Mobile rules from Skill 10 applied across all funnel pages"
+        }
+      }
+    },
+    "phase1_5_output": {
+      "type": "object",
+      "description": "Niche and brand context from Phase 1.5",
+      "required": ["validated_niche", "price_point"],
+      "additionalProperties": true,
+      "properties": {
+        "validated_niche": {
+          "type": "string",
+          "minLength": 10
+        },
+        "price_point": {
+          "type": "number",
+          "minimum": 17,
+          "maximum": 47,
+          "description": "Core product price — drives upsell pricing ladder"
+        },
+        "product_type": {
+          "type": "string",
+          "description": "Template / guide / mini-course / tool — influences funnel type"
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 6,
+          "maximum": 10,
+          "description": "Phase 1.5 must be >= 6/10 to unlock Phase 2"
+        }
+      }
+    },
+    "funnel_intel": {
+      "type": "object",
+      "description": "Optional: Competitor funnel analysis from scraper",
+      "additionalProperties": true,
+      "properties": {
+        "competitor_funnel_types": {
+          "type": "array",
+          "description": "Funnel types used by competitors"
+        },
+        "traffic_source_data": {
+          "type": "object",
+          "description": "Dominant traffic sources for niche (cold vs warm)"
+        }
+      }
+    }
+  }
+}

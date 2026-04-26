@@ -1,0 +1,439 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 12 — Output Schema (12-offre.json)",
+  "description": "Contract JSON that analyst.py parses directly. Pure JSON output only — zero markdown fences.",
+  "version": "1.0",
+  "type": "object",
+  "required": [
+    "skill",
+    "version",
+    "confidence_score",
+    "grand_slam_offer",
+    "value_stack",
+    "aov_stack",
+    "cta_matrix",
+    "scarcity_timeline",
+    "identity_alignment",
+    "checkout_friction_reduction"
+  ],
+  "properties": {
+    "skill": {
+      "type": "string",
+      "const": "12-offre-cta",
+      "description": "Skill identifier — must be exactly '12-offre-cta'"
+    },
+    "version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "confidence_score": {
+      "type": "string",
+      "pattern": "^[0-9]{1,2}/10$",
+      "description": "Output confidence. Format: 'X/10'. Below 7/10 → flag for human review."
+    },
+    "grand_slam_offer": {
+      "type": "object",
+      "required": ["unique_mechanism_name", "unique_mechanism_description", "big_domino_claim", "core_promise", "value_equation"],
+      "properties": {
+        "unique_mechanism_name": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 60,
+          "description": "Proprietary mechanism name — creates a mental referential only seller owns. Must be original, not generic."
+        },
+        "unique_mechanism_description": {
+          "type": "string",
+          "minLength": 50,
+          "description": "2-3 sentence explanation of WHY the mechanism works differently than anything else on market."
+        },
+        "big_domino_claim": {
+          "type": "string",
+          "minLength": 30,
+          "description": "The ONE belief that, if collapsed, makes all other objections irrelevant. Extracted from 09.advanced_tactics.big_domino_shift — NOT invented."
+        },
+        "core_promise": {
+          "type": "string",
+          "minLength": 30,
+          "description": "Format: '[Specific Result] in [Precise Time] without [Primary Obstacle from persona]'. Must contain a number, a time unit, and a 'without' clause."
+        },
+        "value_equation": {
+          "type": "object",
+          "required": ["dream_outcome", "perceived_probability", "time_delay", "effort_sacrifice"],
+          "properties": {
+            "dream_outcome": {
+              "type": "string",
+              "description": "Anchored on verbatims from skill 09 — not invented. The precise transformation the buyer desires."
+            },
+            "perceived_probability": {
+              "type": "string",
+              "description": "Three simultaneous levers: guarantee + proximity proof blocks + ICP-matched testimonials."
+            },
+            "time_delay": {
+              "type": "string",
+              "description": "First win deliverable in <24 hours. Must specify which module/chapter generates the quick win."
+            },
+            "effort_sacrifice": {
+              "type": "string",
+              "description": "What plug-and-play assets reduce friction (templates, scripts, checklists). Specific, not vague."
+            }
+          }
+        }
+      }
+    },
+    "value_stack": {
+      "type": "object",
+      "required": ["lead_magnet", "core_offer", "bonuses", "guarantee", "total_perceived_value", "price", "stack_ratio"],
+      "properties": {
+        "lead_magnet": {
+          "type": "object",
+          "required": ["title", "format", "perceived_value"],
+          "properties": {
+            "title": { "type": "string" },
+            "format": { "type": "string", "examples": ["PDF Checklist", "Video Training", "Template Pack", "Quiz"] },
+            "perceived_value": { "type": "number", "minimum": 0 }
+          }
+        },
+        "core_offer": {
+          "type": "object",
+          "required": ["title", "format", "perceived_value", "modules_or_chapters"],
+          "properties": {
+            "title": { "type": "string" },
+            "format": { "type": "string" },
+            "perceived_value": { "type": "number", "minimum": 0 },
+            "modules_or_chapters": {
+              "type": "array",
+              "minItems": 3,
+              "items": { "type": "string" },
+              "description": "Module/chapter list — first item must be the Quick Win (<24h first value delivery)"
+            }
+          }
+        },
+        "bonuses": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["rank", "title", "type", "perceived_value", "is_fast_action"],
+            "properties": {
+              "rank": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "description": "Hierarchy rank: 1=plug-and-play (highest), 2=speed, 3=accountability, 4=exclusivity, 5=financial (lowest — avoid)"
+              },
+              "title": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["plug-and-play", "speed", "accountability", "exclusivity", "financial"],
+                "description": "Bonus psychological category — drives bonus hierarchy ordering"
+              },
+              "perceived_value": { "type": "number", "minimum": 0 },
+              "justification": {
+                "type": "string",
+                "description": "Why this value is credible (consultant equivalent rate, market comparison)"
+              },
+              "is_fast_action": { "type": "boolean" },
+              "fast_action_deadline_hours": {
+                "type": ["number", "null"],
+                "description": "Hours until fast-action bonus expires. Null if not fast-action."
+              }
+            }
+          }
+        },
+        "guarantee": {
+          "type": "object",
+          "required": ["type", "duration_days", "perceived_value", "copy"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["better-than-money-back", "keep-product", "conditional", "implementation"],
+              "description": "Guarantee type. Sweet spot for $17-$47: keep-product or better-than-money-back."
+            },
+            "duration_days": {
+              "type": "integer",
+              "minimum": 30,
+              "description": "Sweet spot: 60 days. 60 days outperforms 30 days by +23% without increasing refunds."
+            },
+            "perceived_value": { "type": "number", "minimum": 0 },
+            "copy": {
+              "type": "string",
+              "minLength": 50,
+              "description": "Full guarantee copy — must state duration, conditions, and what customer keeps."
+            }
+          }
+        },
+        "total_perceived_value": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Sum of all elements perceived values. Must equal sum of lead_magnet + core_offer + all bonuses + guarantee."
+        },
+        "price": {
+          "type": "number",
+          "minimum": 17,
+          "maximum": 47,
+          "description": "Actual sale price — must match price_point from skill 11."
+        },
+        "stack_ratio": {
+          "type": "number",
+          "minimum": 10,
+          "description": "total_perceived_value / price. MINIMUM 10. Ideal 16.9 for $47. Example: $793 / $47 = 16.9."
+        }
+      }
+    },
+    "aov_stack": {
+      "type": "object",
+      "required": ["order_bump", "oto", "downsell"],
+      "properties": {
+        "order_bump": {
+          "type": "object",
+          "required": ["price", "title", "headline", "target_take_rate"],
+          "properties": {
+            "price": {
+              "type": "number",
+              "minimum": 12,
+              "maximum": 19,
+              "description": "Must be $12-$19. Minimal friction — buyer already committed to spending."
+            },
+            "title": { "type": "string" },
+            "headline": {
+              "type": "string",
+              "description": "Format: 'Add [Name] for only $[Price] — [Immediate Benefit Today]'"
+            },
+            "dynamic_variants": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["traffic_source", "variant_copy"],
+                "properties": {
+                  "traffic_source": { "type": "string", "examples": ["meta", "tiktok", "email", "organic"] },
+                  "variant_copy": { "type": "string" }
+                }
+              },
+              "description": "Dynamic order bump variants by traffic source — 2026 differentiator."
+            },
+            "target_take_rate": {
+              "type": "number",
+              "description": "Target acceptance rate. Benchmark: 37.8%."
+            }
+          }
+        },
+        "oto": {
+          "type": "object",
+          "required": ["price", "title", "opening_copy", "placement", "target_acceptance_rate"],
+          "properties": {
+            "price": {
+              "type": "number",
+              "minimum": 51,
+              "maximum": 100
+            },
+            "title": { "type": "string" },
+            "opening_copy": {
+              "type": "string",
+              "description": "Must open with 'Before you close this page...' — exploits buying spree momentum."
+            },
+            "placement": {
+              "type": "string",
+              "const": "thank_you_page",
+              "description": "Always Thank You page — immediate post-purchase, one-click, no card re-entry."
+            },
+            "target_acceptance_rate": {
+              "type": "number",
+              "description": "Target: 15-25% acceptance rate."
+            }
+          }
+        },
+        "downsell": {
+          "type": "object",
+          "required": ["type", "price", "copy"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["lite_version", "payment_plan"],
+              "description": "Never arbitrary discount. Lite version OR payment plan only."
+            },
+            "price": {
+              "type": "string",
+              "description": "String to allow payment plan formatting (e.g., '$37/month x 3')."
+            },
+            "copy": { "type": "string" }
+          }
+        }
+      }
+    },
+    "cta_matrix": {
+      "type": "object",
+      "required": ["hero", "solution", "proof", "offer_primary", "risk_reversal"],
+      "description": "One CTA per LP block. All button texts in FIRST PERSON. Zero generic ('Submit', 'Buy', 'Register').",
+      "properties": {
+        "hero": {
+          "type": "object",
+          "required": ["button_text", "micro_copy"],
+          "properties": {
+            "button_text": {
+              "type": "string",
+              "description": "Format: 'Oui, je veux [Résultat Principal] →'. First person. Outcome-driven."
+            },
+            "micro_copy": {
+              "type": "string",
+              "description": "Reassurance line below button. Format: '✓ Accès immédiat · ✓ Garantie X jours · ✓ [Specifique]'"
+            }
+          }
+        },
+        "solution": {
+          "type": "object",
+          "required": ["button_text", "micro_copy"],
+          "properties": {
+            "button_text": {
+              "type": "string",
+              "description": "Mechanism curiosity CTA. Format: 'Voir comment [Mécanisme Unique] fonctionne →'"
+            },
+            "micro_copy": { "type": "string" }
+          }
+        },
+        "proof": {
+          "type": "object",
+          "required": ["button_text", "micro_copy"],
+          "properties": {
+            "button_text": {
+              "type": "string",
+              "description": "Social proof CTA. Format: 'Rejoindre [N] personnes qui ont [Résultat] →'"
+            },
+            "micro_copy": { "type": "string" }
+          }
+        },
+        "offer_primary": {
+          "type": "object",
+          "required": ["button_text", "micro_copy"],
+          "properties": {
+            "button_text": {
+              "type": "string",
+              "description": "PRIMARY CTA — highest conversion priority. Format: 'Oui ! Je veux [Offre Complète] pour seulement $[Prix] →'"
+            },
+            "micro_copy": { "type": "string" }
+          }
+        },
+        "risk_reversal": {
+          "type": "object",
+          "required": ["button_text", "micro_copy"],
+          "properties": {
+            "button_text": {
+              "type": "string",
+              "description": "Guarantee anchor CTA. Format: 'Essayer sans risque pendant [N] jours →'"
+            },
+            "micro_copy": { "type": "string" }
+          }
+        }
+      }
+    },
+    "scarcity_timeline": {
+      "type": "object",
+      "required": ["j1_j2", "j3_j4", "j5_plus"],
+      "description": "Phased Bonus Depletion — core product never removed. Only bonuses expire. ZERO fake scarcity.",
+      "properties": {
+        "j1_j2": {
+          "type": "object",
+          "required": ["available_stack", "copy"],
+          "properties": {
+            "available_stack": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "All stack elements available on days 1-2 (full launch)"
+            },
+            "copy": {
+              "type": "string",
+              "description": "Urgency copy for this phase — must reference specific bonus names expiring."
+            }
+          }
+        },
+        "j3_j4": {
+          "type": "object",
+          "required": ["available_stack", "expired", "copy"],
+          "properties": {
+            "available_stack": { "type": "array", "items": { "type": "string" } },
+            "expired": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Fast-Action Bonus expired. Must not remove core offer."
+            },
+            "copy": { "type": "string" }
+          }
+        },
+        "j5_plus": {
+          "type": "object",
+          "required": ["available_stack", "expired", "copy"],
+          "properties": {
+            "available_stack": { "type": "array", "items": { "type": "string" } },
+            "expired": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Bonus 2 also removed. Core + Guarantee always remain."
+            },
+            "copy": { "type": "string" }
+          }
+        }
+      }
+    },
+    "identity_alignment": {
+      "type": "object",
+      "required": ["desired_identity", "rational_alibi", "status_signal", "feel_smart_statement"],
+      "description": "The product is an identity vehicle, not a feature collection. 3 JTBD dimensions: functional, emotional, social.",
+      "properties": {
+        "desired_identity": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Who the buyer aspires to BECOME — extracted from skill 09 BAB after-state. Not invented."
+        },
+        "rational_alibi": {
+          "type": "string",
+          "minLength": 20,
+          "description": "Logical justification post-purchase (ROI, time savings, price comparison). Left-brain alibi for right-brain decision."
+        },
+        "status_signal": {
+          "type": "string",
+          "minLength": 20,
+          "description": "What buying this says about the buyer to their social circle. Activates social JTBD dimension."
+        },
+        "feel_smart_statement": {
+          "type": "string",
+          "minLength": 20,
+          "description": "The 'feel smart for buying' message — reduces post-purchase guilt and refund demand."
+        }
+      }
+    },
+    "checkout_friction_reduction": {
+      "type": "object",
+      "required": ["express_checkout", "trust_badges", "guarantee_reminder_copy", "guest_checkout"],
+      "properties": {
+        "express_checkout": {
+          "type": "array",
+          "items": { "type": "string" },
+          "examples": [["Apple Pay", "Google Pay"]],
+          "description": "Biometric payment options — 2-click checkout reduces abandonment."
+        },
+        "bnpl": {
+          "type": "object",
+          "description": "Buy Now Pay Later — mandatory for price_point > $37. +30-50% AOV impact.",
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "providers": { "type": "array", "items": { "type": "string" }, "examples": [["Klarna", "Afterpay"]] }
+          }
+        },
+        "trust_badges": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Trust signals adjacent to card fields. SSL badge always required."
+        },
+        "guarantee_reminder_copy": {
+          "type": "string",
+          "description": "Short guarantee reminder placed at checkout — reduces abandonment at final friction point."
+        },
+        "guest_checkout": {
+          "type": "boolean",
+          "const": true,
+          "description": "Always true — guest checkout by default prevents 24% of cart abandonment."
+        }
+      }
+    }
+  }
+}

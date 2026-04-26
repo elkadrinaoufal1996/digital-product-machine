@@ -18,6 +18,7 @@ Import from either agent with:
 
 import re
 import sys
+import warnings
 from pathlib import Path
 
 # ─── Terminal colours (kept local so utils.py is self-contained) ─────────────
@@ -254,10 +255,13 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
         elif any(kw in content_lower for kw in ["exclusive", "premium", "elite", "vip", "luxury"]):
             dominant_emotion = "exclusivity"
         else:
-            dominant_emotion = "frustration"  # safest middle-ground for $17-$47 products
+            raise ValueError(
+                "[PHASE-1-HANDOFF ERROR] Field 'dominant_emotion' not found "
+                "in PHASE-1-OUTPUT.md. Re-run Skill 05 or check markdown structure."
+            )
         _log_warn(
             f"dominant_emotion not explicitly labelled — "
-            f"keyword heuristic → '{dominant_emotion}'"
+            f"keyword heuristic -> '{dominant_emotion}'"
         )
 
     # ── dominant_persona ──────────────────────────────────────────────────────
@@ -267,8 +271,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
         r"(?i)(\d{2})\s*[-–to]+\s*(\d{2})\s*(?:year|yr)",
     ], content)
     if not age_range:
-        age_range = "25-45"
-        _log_warn("dominant_persona.age_range not found — defaulting to '25-45'")
+        raise ValueError(
+            "[PHASE-1-HANDOFF ERROR] Field 'age_range' not found "
+            "in PHASE-1-OUTPUT.md. Re-run Skill 05 or check markdown structure."
+        )
 
     gender = _first_match([
         r"(?i)gender[:\s*]+([a-z\s/|]+?)(?:\n|,|\.|$)",
@@ -277,7 +283,11 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
     ], content).strip().rstrip(".,")
     if not gender:
         gender = "all genders"
-        _log_warn("dominant_persona.gender not found — defaulting to 'all genders'")
+        warnings.warn(
+            "[DEGRADED] 'gender' not found — using default 'all genders'. "
+            "Output confidence is reduced.",
+            RuntimeWarning, stacklevel=2
+        )
 
     psychographic = _first_match([
         r"(?i)psychographic[s]?[:\s*]+([^\n]{5,120})",
@@ -286,8 +296,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
         r"(?i)lifestyle[:\s*]+([^\n]{5,120})",
     ], content)
     if not psychographic:
-        psychographic = "motivated, results-oriented"
-        _log_warn("dominant_persona.psychographic not found — using generic default")
+        raise ValueError(
+            "[PHASE-1-HANDOFF ERROR] Field 'psychographic' not found "
+            "in PHASE-1-OUTPUT.md. Re-run Skill 05 or check markdown structure."
+        )
 
     dominant_persona = {
         "age_range":     age_range[:30],
@@ -300,8 +312,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
     if price_match:
         price_point = int(price_match.group(1))
     else:
-        price_point = 27
-        _log_warn("price_point ($17|$27|$37|$47) not found — defaulting to 27")
+        raise ValueError(
+            "[PHASE-1-HANDOFF ERROR] Field 'price_point' not found "
+            "in PHASE-1-OUTPUT.md. Re-run Skill 05 or check markdown structure."
+        )
 
     # ── top_3_uvp ─────────────────────────────────────────────────────────────
     top_3_uvp: list[str] = []
@@ -380,8 +394,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
     market_awareness_level = re.sub(r"[\s\-]+", "_", raw_awareness.lower().strip())
     if market_awareness_level not in _AWARENESS_LEVELS:
         market_awareness_level = "problem_aware"
-        _log_warn(
-            "market_awareness_level not found — defaulting to 'problem_aware'"
+        warnings.warn(
+            "[DEGRADED] 'market_awareness_level' not found — "
+            "defaulting to 'problem_aware'. Output confidence is reduced.",
+            RuntimeWarning, stacklevel=2
         )
 
     # ── competitor_dominant_angle ─────────────────────────────────────────────
@@ -396,8 +412,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
         competitor_dominant_angle = (
             "Results-focused transformation messaging with social proof"
         )
-        _log_warn(
-            "competitor_dominant_angle not found — using generic default"
+        warnings.warn(
+            "[DEGRADED] 'competitor_dominant_angle' not found — using generic default. "
+            "Output confidence is reduced.",
+            RuntimeWarning, stacklevel=2
         )
 
     # ── new_mechanism_name ────────────────────────────────────────────────────
@@ -413,8 +431,10 @@ def extract_business_fields_from_phase1(path: Path) -> dict:
     if not new_mechanism_name:
         first_word = validated_niche.split()[0].title() if validated_niche else "Core"
         new_mechanism_name = f"The {first_word} System"
-        _log_warn(
-            "new_mechanism_name not found — derived from validated_niche"
+        warnings.warn(
+            "[DEGRADED] 'new_mechanism_name' not found — derived from niche. "
+            "Output confidence is reduced.",
+            RuntimeWarning, stacklevel=2
         )
 
     result = {

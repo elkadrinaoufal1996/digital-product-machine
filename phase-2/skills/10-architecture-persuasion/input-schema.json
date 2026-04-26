@@ -1,0 +1,133 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 10 Input Schema",
+  "description": "Input validation for architecture-persuasion. Requires Skill 09 psychology analysis and Phase 1.5 niche data.",
+  "type": "object",
+  "required": ["buyer_psychology", "phase1_5_output", "visual_identity"],
+  "additionalProperties": false,
+  "properties": {
+    "buyer_psychology": {
+      "type": "object",
+      "description": "Psychology analysis from Skill 09. Used to position psychology elements on page architecture.",
+      "required": [
+        "lock_and_key",
+        "pas_sequence",
+        "aida_elements",
+        "bab_positioning",
+        "persuasion_mechanisms",
+        "objections_and_reversals",
+        "buyer_state_analysis"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "lock_and_key": {
+          "type": "object",
+          "description": "Maps to Blocks 2 (Problem) and 4 (Solution)"
+        },
+        "pas_sequence": {
+          "type": "object",
+          "description": "Maps to Blocks 2-3-4 (Problem-Agitate-Solution)",
+          "required": ["problem", "agitate", "solution"]
+        },
+        "aida_elements": {
+          "type": "object",
+          "description": "Maps to Blocks 1-5-8-9 (Attention-Interest-Desire-Action)",
+          "required": ["attention_triggers", "interest_hooks", "desire_amplifiers", "action_barriers"]
+        },
+        "bab_positioning": {
+          "type": "object",
+          "description": "Maps to Blocks 2-4-8 (Before-After-Bridge)",
+          "required": ["before_state", "after_state", "bridge_mechanism"]
+        },
+        "persuasion_mechanisms": {
+          "type": "object",
+          "description": "Primary mechanism influences CTA color and scarcity positioning",
+          "required": ["primary_mechanism", "trigger_words", "banned_patterns"]
+        },
+        "objections_and_reversals": {
+          "type": "object",
+          "description": "Maps to Block 7 (Objections) and Block 9 (Risk Reversal)",
+          "required": ["objections", "risk_reversal_recommended"]
+        },
+        "buyer_state_analysis": {
+          "type": "object",
+          "description": "Awareness level determines hero optimization strategy",
+          "required": ["awareness_level", "sophistication_level", "dominant_objection"]
+        }
+      }
+    },
+    "phase1_5_output": {
+      "type": "object",
+      "description": "Niche and brand context from Phase 1.5",
+      "required": ["validated_niche", "top_3_uvp", "brand_voice"],
+      "additionalProperties": true,
+      "properties": {
+        "validated_niche": {
+          "type": "string",
+          "minLength": 10
+        },
+        "top_3_uvp": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "string",
+            "minLength": 20
+          }
+        },
+        "brand_voice": {
+          "type": "object",
+          "description": "Influences typography and tone-of-architecture decisions"
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 6,
+          "maximum": 10,
+          "description": "Phase 1.5 must be >= 6/10"
+        }
+      }
+    },
+    "visual_identity": {
+      "type": "object",
+      "description": "Brand visual identity from Skill 06 (Phase 1.5). Color palette is the source of truth for all page colors.",
+      "required": ["color_palette"],
+      "additionalProperties": true,
+      "properties": {
+        "color_palette": {
+          "type": "object",
+          "required": ["primary", "secondary", "accent", "neutral", "highlight"],
+          "properties": {
+            "primary": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "secondary": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "accent": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "neutral": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "highlight": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"}
+          }
+        },
+        "palette_distribution": {
+          "type": "string",
+          "description": "60-30-10 rule from Skill 06"
+        },
+        "emotional_journey": {
+          "type": "string",
+          "description": "Emotional progression mapped to palette"
+        }
+      }
+    },
+    "persuasion_intel": {
+      "type": "object",
+      "description": "Optional: Competitor LP analysis from scraper",
+      "additionalProperties": true,
+      "properties": {
+        "competitor_lp_structures": {
+          "type": "array",
+          "description": "Competitive page architecture patterns"
+        },
+        "hero_patterns": {
+          "type": "array",
+          "description": "Competitor above-fold strategies"
+        }
+      }
+    }
+  }
+}

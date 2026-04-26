@@ -1,0 +1,194 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 09 Input Schema",
+  "description": "Input validation for buyer-psychology-masterclass. Requires validated Phase 1.5 output and 3 buyer personas with minimum 5 verbatims each (15 total).",
+  "type": "object",
+  "required": ["phase1_5_output", "personas"],
+  "additionalProperties": false,
+  "properties": {
+    "phase1_5_output": {
+      "type": "object",
+      "description": "Validated niche data from Phase 1.5 synthesis skill",
+      "required": ["validated_niche", "dominant_emotion", "brand_voice", "top_3_uvp"],
+      "additionalProperties": true,
+      "properties": {
+        "validated_niche": {
+          "type": "string",
+          "minLength": 10,
+          "description": "The validated niche from Phase 1 (e.g., 'AI productivity tools for solopreneurs')"
+        },
+        "dominant_emotion": {
+          "type": "string",
+          "minLength": 5,
+          "description": "Primary emotional driver identified in Phase 1.5 (e.g., 'frustration', 'anxiety', 'aspiration')"
+        },
+        "brand_voice": {
+          "type": "object",
+          "description": "Brand voice model from Skill 07. Must contain tone, style, and vocabulary guidelines.",
+          "additionalProperties": true
+        },
+        "top_3_uvp": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "description": "Exactly 3 Unique Value Propositions from Phase 1 Skill 03. The 'key' in Lock & Key must map to one of these.",
+          "items": {
+            "type": "string",
+            "minLength": 20,
+            "description": "A unique value proposition statement (minimum 20 characters)"
+          }
+        },
+        "confidence_score": {
+          "type": "number",
+          "minimum": 6,
+          "maximum": 10,
+          "description": "Phase 1.5 confidence score — must be >= 6/10. Scores below 6 trigger BLOCKING CONDITION #2."
+        },
+        "market_size": {
+          "type": "string",
+          "description": "Optional: estimated addressable market from Phase 1.5"
+        },
+        "competition_level": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "saturated"],
+          "description": "Optional: competition assessment used to calibrate sophistication rating"
+        }
+      }
+    },
+    "personas": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "description": "Exactly 3 validated buyer personas from Phase 1 Skill 04. Each must have a minimum of 5 verbatim quotes (15 total across all personas).",
+      "items": {
+        "type": "object",
+        "required": ["persona_name", "verbatims"],
+        "additionalProperties": true,
+        "properties": {
+          "persona_name": {
+            "type": "string",
+            "minLength": 3,
+            "description": "Descriptive persona label (e.g., 'The Overwhelmed Side-Hustler', 'The Career Switcher')"
+          },
+          "dominant_pain": {
+            "type": "string",
+            "description": "Optional: primary pain point summary for this persona"
+          },
+          "demographics": {
+            "type": "object",
+            "description": "Optional: age, income, occupation, location data",
+            "additionalProperties": true
+          },
+          "psychographics": {
+            "type": "object",
+            "description": "Optional: values, lifestyle, interests data",
+            "additionalProperties": true
+          },
+          "verbatims": {
+            "type": "array",
+            "minItems": 5,
+            "description": "Minimum 5 direct buyer quotes per persona (15 total across 3 personas). Each quote must be sourced and dated.",
+            "items": {
+              "type": "object",
+              "required": ["quote", "source_url", "date"],
+              "additionalProperties": true,
+              "properties": {
+                "quote": {
+                  "type": "string",
+                  "minLength": 20,
+                  "description": "Direct, unedited buyer quote. Never paraphrase — use exact language."
+                },
+                "source_url": {
+                  "type": "string",
+                  "format": "uri",
+                  "description": "URL where quote was found (Reddit thread, Amazon review, forum post, survey response, etc.)"
+                },
+                "date": {
+                  "type": "string",
+                  "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                  "description": "Date quote was posted/collected in YYYY-MM-DD format"
+                },
+                "context": {
+                  "type": "string",
+                  "description": "Optional: surrounding context (thread title, question being answered, product being reviewed)"
+                },
+                "sentiment": {
+                  "type": "string",
+                  "enum": ["pain", "aspiration", "objection", "praise", "skepticism", "neutral"],
+                  "description": "Optional: emotional category of the verbatim"
+                },
+                "upvotes": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Optional: social proof signal (Reddit upvotes, review helpfulness votes)"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "phase1_5_output": {
+        "validated_niche": "AI productivity tools for solopreneurs earning $0-5K/month",
+        "dominant_emotion": "frustration with information overload and lack of results",
+        "brand_voice": {
+          "tone": "direct, empathetic, no-BS",
+          "style": "conversational expert",
+          "vocabulary": ["system", "proven", "action", "results", "shortcut"]
+        },
+        "top_3_uvp": [
+          "48-hour implementation guarantee — complete the system in one weekend",
+          "Zero theory, 100% action — every page has a template you can deploy today",
+          "Built for solo operators — no team, no agency, no expensive tools required"
+        ],
+        "confidence_score": 8.2
+      },
+      "personas": [
+        {
+          "persona_name": "The Course Collector",
+          "dominant_pain": "buys courses but never finishes them",
+          "verbatims": [
+            {
+              "quote": "I've bought 7 courses this year and finished zero. They sit in my downloads while I scroll Instagram feeling guilty.",
+              "source_url": "https://reddit.com/r/Entrepreneur/comments/example1",
+              "date": "2026-03-15",
+              "sentiment": "pain",
+              "upvotes": 847
+            },
+            {
+              "quote": "Another $497 course that I'll probably watch 2 modules of. Why do I keep doing this to myself?",
+              "source_url": "https://reddit.com/r/Entrepreneur/comments/example2",
+              "date": "2026-02-28",
+              "sentiment": "pain",
+              "upvotes": 412
+            },
+            {
+              "quote": "I don't need more information, I need someone to just tell me exactly what to do next.",
+              "source_url": "https://reddit.com/r/sidehustle/comments/example3",
+              "date": "2026-01-10",
+              "sentiment": "aspiration",
+              "upvotes": 623
+            },
+            {
+              "quote": "The problem isn't the course, it's me. I'm overwhelmed the moment I see a 40-module curriculum.",
+              "source_url": "https://reddit.com/r/Entrepreneur/comments/example4",
+              "date": "2026-03-01",
+              "sentiment": "objection",
+              "upvotes": 298
+            },
+            {
+              "quote": "I just want a checklist. Not a masterclass. Just tell me: Step 1, Step 2, Step 3.",
+              "source_url": "https://twitter.com/example/status/123456789",
+              "date": "2026-02-14",
+              "sentiment": "aspiration",
+              "upvotes": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

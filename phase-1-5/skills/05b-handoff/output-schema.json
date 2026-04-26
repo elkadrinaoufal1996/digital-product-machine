@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "validated_niche",
+    "dominant_emotion",
+    "dominant_persona",
+    "price_point_tier",
+    "price_point_actual",
+    "top_3_uvp",
+    "promise_statement",
+    "competitor_dominant_angle",
+    "new_mechanism_name",
+    "market_awareness_level",
+    "confidence_score"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "validated_niche": { "type": "string", "minLength": 3 },
+    "dominant_emotion": {
+      "type": "string",
+      "enum": ["fear", "desire", "frustration", "aspiration", "trust", "exclusivity"]
+    },
+    "dominant_persona": {
+      "type": "object",
+      "required": ["age_range", "gender", "psychographic"],
+      "properties": {
+        "age_range":     { "type": "string" },
+        "gender":        { "type": "string" },
+        "psychographic": { "type": "string", "minLength": 5 }
+      }
+    },
+    "price_point_tier":   { "type": "integer", "enum": [17, 27, 37, 47] },
+    "price_point_actual": { "type": "number", "minimum": 1 },
+    "top_3_uvp": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 5 },
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "promise_statement":         { "type": "string", "minLength": 10 },
+    "competitor_dominant_angle": { "type": "string", "minLength": 5 },
+    "new_mechanism_name

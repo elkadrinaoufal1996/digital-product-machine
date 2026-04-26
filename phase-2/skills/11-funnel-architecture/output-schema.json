@@ -1,0 +1,458 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 11 Output Schema",
+  "description": "Output validation for funnel-architecture. This JSON becomes the funnel blueprint consumed by Skills 12-18.",
+  "type": "object",
+  "required": [
+    "funnel_type_selected",
+    "page_sequence",
+    "scent_matching_strategy",
+    "aov_engineering",
+    "urgency_protocol",
+    "abandonment_recovery",
+    "mobile_optimization",
+    "conversion_benchmarks_targets",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "funnel_type_selected": {
+      "type": "object",
+      "required": ["funnel_type", "rationale", "awareness_level_input", "traffic_temperature"],
+      "properties": {
+        "funnel_type": {
+          "type": "string",
+          "enum": ["simple_direct", "lead_magnet", "vsl_funnel", "webinar_funnel", "hybrid"],
+          "description": "Selected funnel type based on decision matrix"
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Why this funnel was selected (awareness + price + traffic)"
+        },
+        "awareness_level_input": {
+          "type": "string",
+          "enum": ["TOFU", "MOFU", "BOFU"],
+          "description": "From Skill 09 buyer_state_analysis.awareness_level"
+        },
+        "traffic_temperature": {
+          "type": "string",
+          "enum": ["cold", "warm", "hot"],
+          "description": "Expected traffic temperature for this niche"
+        },
+        "alternative_considered": {
+          "type": "string",
+          "description": "Second-best funnel option and why it was not selected"
+        }
+      }
+    },
+    "page_sequence": {
+      "type": "object",
+      "required": ["total_pages", "pages"],
+      "properties": {
+        "total_pages": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 8
+        },
+        "pages": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "type": "object",
+            "required": [
+              "page_number",
+              "page_name",
+              "page_type",
+              "purpose",
+              "primary_cta",
+              "scent_from_previous",
+              "skill10_blocks_used",
+              "conversion_target"
+            ],
+            "properties": {
+              "page_number": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "page_name": {
+                "type": "string",
+                "description": "Human-readable page name"
+              },
+              "page_type": {
+                "type": "string",
+                "enum": [
+                  "sales_page",
+                  "opt_in_page",
+                  "vsl_page",
+                  "registration_page",
+                  "delivery_page",
+                  "thank_you_page",
+                  "upsell_page",
+                  "downsell_page",
+                  "webinar_room",
+                  "replay_page",
+                  "bridge_page"
+                ]
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 20,
+                "description": "Primary goal of this page in the funnel flow"
+              },
+              "primary_cta": {
+                "type": "string",
+                "description": "The single primary action this page drives"
+              },
+              "scent_from_previous": {
+                "type": "string",
+                "minLength": 20,
+                "description": "How this page maintains continuity from the previous step"
+              },
+              "skill10_blocks_used": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "hero_section",
+                    "problem_articulation",
+                    "agitate_amplify",
+                    "mechanism_solution",
+                    "how_it_works",
+                    "social_proof_credibility",
+                    "objection_handling",
+                    "offer_value_stack",
+                    "risk_reversal_final_cta",
+                    "none"
+                  ]
+                },
+                "description": "Skill 10 blocks integrated on this page (use 'none' for non-sales pages)"
+              },
+              "conversion_target": {
+                "type": "string",
+                "description": "Expected conversion rate benchmark for this page step"
+              }
+            }
+          }
+        }
+      }
+    },
+    "scent_matching_strategy": {
+      "type": "object",
+      "required": ["visual_scent", "verbal_scent", "psychological_scent", "platform_specific_rules"],
+      "properties": {
+        "visual_scent": {
+          "type": "object",
+          "required": ["color_palette_source", "typography_source", "consistency_rules"],
+          "properties": {
+            "color_palette_source": {
+              "type": "string",
+              "description": "Reference to Skill 06 palette used across all pages"
+            },
+            "typography_source": {
+              "type": "string",
+              "description": "Reference to Skill 10 typography hierarchy"
+            },
+            "consistency_rules": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Visual continuity rules applied at each page transition"
+            }
+          }
+        },
+        "verbal_scent": {
+          "type": "object",
+          "required": ["headline_continuity_map", "language_patterns", "dtr_formula"],
+          "properties": {
+            "headline_continuity_map": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["from_step", "to_step", "continuity_rule"],
+                "properties": {
+                  "from_step": {"type": "string"},
+                  "to_step": {"type": "string"},
+                  "continuity_rule": {"type": "string"}
+                }
+              }
+            },
+            "language_patterns": {
+              "type": "array",
+              "items": {"type": "string"},
+              "description": "Exact phrases mirrored across pages (e.g., '48-hour' used consistently)"
+            },
+            "dtr_formula": {
+              "type": "string",
+              "description": "Dynamic Text Replacement formula for this niche"
+            }
+          }
+        },
+        "psychological_scent": {
+          "type": "object",
+          "required": ["awareness_continuity", "objection_thread", "promise_consistency"],
+          "properties": {
+            "awareness_continuity": {
+              "type": "string",
+              "description": "How awareness level is maintained from ad to final page"
+            },
+            "objection_thread": {
+              "type": "string",
+              "description": "Primary objection addressed consistently at each transition"
+            },
+            "promise_consistency": {
+              "type": "string",
+              "description": "Core promise that runs unchanged from ad to Thank You page"
+            }
+          }
+        },
+        "platform_specific_rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["traffic_source", "scent_adjustment"],
+            "properties": {
+              "traffic_source": {"type": "string"},
+              "scent_adjustment": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "aov_engineering": {
+      "type": "object",
+      "required": [
+        "core_product_price",
+        "order_bump",
+        "upsell_oto",
+        "downsell",
+        "value_stack",
+        "projected_aov"
+      ],
+      "properties": {
+        "core_product_price": {
+          "type": "number",
+          "minimum": 17,
+          "maximum": 47
+        },
+        "order_bump": {
+          "type": "object",
+          "required": ["price", "product_description", "selection_rationale", "dynamic_logic", "copy_headline", "expected_take_rate"],
+          "properties": {
+            "price": {"type": "number", "minimum": 12, "maximum": 37},
+            "product_description": {"type": "string"},
+            "selection_rationale": {"type": "string", "minLength": 30},
+            "dynamic_logic": {"type": "string", "description": "Conditional rule for bump display"},
+            "copy_headline": {"type": "string"},
+            "expected_take_rate": {"type": "string", "description": "e.g., '37.8% average'"}
+          }
+        },
+        "upsell_oto": {
+          "type": "object",
+          "required": ["price", "product_description", "positioning", "placement", "expected_acceptance_rate", "aov_lift"],
+          "properties": {
+            "price": {"type": "number", "minimum": 51, "maximum": 197},
+            "product_description": {"type": "string"},
+            "positioning": {
+              "type": "string",
+              "enum": ["implementation_accelerator", "flagship_discount", "done_for_you"],
+              "description": "Must be accelerator NOT more information"
+            },
+            "placement": {"type": "string"},
+            "expected_acceptance_rate": {"type": "string"},
+            "aov_lift": {"type": "string", "description": "e.g., '+68% AOV'"}
+          }
+        },
+        "downsell": {
+          "type": "object",
+          "required": ["type", "price", "what_removed", "trigger_condition"],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["payment_plan", "lite_version"],
+              "description": "NEVER arbitrary discount"
+            },
+            "price": {"type": "number"},
+            "what_removed": {"type": "string", "description": "Which bonuses/features stripped"},
+            "trigger_condition": {"type": "string"}
+          }
+        },
+        "value_stack": {
+          "type": "object",
+          "required": ["elements", "total_perceived_value", "actual_price", "ratio"],
+          "properties": {
+            "elements": {
+              "type": "array",
+              "minItems": 3,
+              "items": {
+                "type": "object",
+                "required": ["name", "type", "perceived_value", "description"],
+                "properties": {
+                  "name": {"type": "string"},
+                  "type": {
+                    "type": "string",
+                    "enum": ["main_product", "template", "swipe_file", "ai_prompt_pack", "action_shortcut", "bonus"]
+                  },
+                  "perceived_value": {"type": "number"},
+                  "description": {"type": "string"}
+                }
+              }
+            },
+            "total_perceived_value": {"type": "number"},
+            "actual_price": {"type": "number"},
+            "ratio": {
+              "type": "number",
+              "minimum": 5,
+              "description": "Perceived value : actual price ratio. Minimum 5:1 required."
+            }
+          }
+        },
+        "projected_aov": {
+          "type": "object",
+          "required": ["calculation", "projected_aov_per_buyer"],
+          "properties": {
+            "calculation": {"type": "string", "description": "Formula: core + (bump_price × take_rate) + (oto_price × acceptance_rate)"},
+            "projected_aov_per_buyer": {"type": "number"}
+          }
+        }
+      }
+    },
+    "urgency_protocol": {
+      "type": "object",
+      "required": ["protocol_type", "schedule", "technology", "conversion_lift_expected"],
+      "properties": {
+        "protocol_type": {
+          "type": "string",
+          "enum": ["phased_bonus_depletion", "deadline_countdown", "stock_scarcity", "none"],
+          "description": "phased_bonus_depletion recommended for evergreen funnels"
+        },
+        "schedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["day", "event"],
+            "properties": {
+              "day": {"type": "string"},
+              "event": {"type": "string"}
+            }
+          }
+        },
+        "technology": {
+          "type": "string",
+          "description": "e.g., Deadline Funnel (cookies + IP + email tracking)"
+        },
+        "conversion_lift_expected": {
+          "type": "string",
+          "description": "e.g., '+100-150% vs static evergreen'"
+        }
+      }
+    },
+    "abandonment_recovery": {
+      "type": "object",
+      "required": ["exit_intent_strategy", "email_recovery_sequence", "mobile_recovery"],
+      "properties": {
+        "exit_intent_strategy": {
+          "type": "object",
+          "required": ["desktop_trigger", "mobile_trigger", "offer_shift"],
+          "properties": {
+            "desktop_trigger": {"type": "string"},
+            "mobile_trigger": {"type": "string"},
+            "offer_shift": {"type": "string", "description": "Alternative offer presented (not same as main CTA)"}
+          }
+        },
+        "email_recovery_sequence": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "required": ["email_number", "timing", "subject_angle", "primary_lever"],
+            "properties": {
+              "email_number": {"type": "integer"},
+              "timing": {"type": "string"},
+              "subject_angle": {"type": "string"},
+              "primary_lever": {
+                "type": "string",
+                "enum": ["support", "urgency", "social_proof", "scarcity", "discount_last_resort"]
+              }
+            }
+          }
+        },
+        "mobile_recovery": {
+          "type": "object",
+          "required": ["sms_strategy", "retargeting_strategy"],
+          "properties": {
+            "sms_strategy": {"type": "string"},
+            "retargeting_strategy": {"type": "string", "description": "Cross-device retargeting approach (+400% lift)"}
+          }
+        }
+      }
+    },
+    "mobile_optimization": {
+      "type": "object",
+      "required": ["opc_mandatory", "touch_targets", "lcp_target", "cta_rules"],
+      "properties": {
+        "opc_mandatory": {
+          "type": "boolean",
+          "enum": [true],
+          "description": "Always true for $17-$47 products"
+        },
+        "touch_targets": {
+          "type": "string",
+          "enum": ["44x44px minimum"],
+          "description": "WCAG + mobile conversion standard"
+        },
+        "lcp_target": {
+          "type": "string",
+          "enum": ["<1.5 seconds"],
+          "description": "Every 1s delay = -7% conversion"
+        },
+        "cta_rules": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "Mobile-specific CTA rules (full-width, above fold, etc.)"
+        }
+      }
+    },
+    "conversion_benchmarks_targets": {
+      "type": "object",
+      "required": ["funnel_overall_conversion", "per_page_targets"],
+      "properties": {
+        "funnel_overall_conversion": {
+          "type": "string",
+          "description": "Expected end-to-end conversion range (e.g., '4.8-6.2% for Simple Direct with Hybrid VSL')"
+        },
+        "per_page_targets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["page_name", "metric", "target"],
+            "properties": {
+              "page_name": {"type": "string"},
+              "metric": {"type": "string"},
+              "target": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": ["skill", "version", "inputs_used", "confidence_score"],
+      "properties": {
+        "skill": {"type": "string", "enum": ["11-funnel-architecture"]},
+        "version": {"type": "string"},
+        "inputs_used": {
+          "type": "array",
+          "items": {"type": "string"},
+          "description": "List of input files consumed"
+        },
+        "confidence_score": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 10,
+          "description": "Confidence in funnel selection and AOV projections (7-10)"
+        }
+      }
+    }
+  }
+}

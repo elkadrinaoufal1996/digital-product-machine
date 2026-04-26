@@ -1,0 +1,708 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 10 Output Schema",
+  "description": "Output validation for architecture-persuasion. This JSON becomes the positioning blueprint consumed by Skills 11-17.",
+  "type": "object",
+  "required": [
+    "page_architecture",
+    "above_fold_optimization",
+    "visual_hierarchy",
+    "color_psychology",
+    "typography_hierarchy",
+    "mobile_first_design",
+    "future_pacing",
+    "friction_reduction",
+    "conversion_benchmarks",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "page_architecture": {
+      "type": "object",
+      "required": ["block_sequence"],
+      "properties": {
+        "block_sequence": {
+          "type": "array",
+          "minItems": 9,
+          "maxItems": 9,
+          "description": "Exactly 9 blocks in sequential order. This is the structural blueprint.",
+          "items": {
+            "type": "object",
+            "required": [
+              "block_number",
+              "block_name",
+              "components",
+              "positioning_rule",
+              "psychology_trigger",
+              "content_source",
+              "design_notes"
+            ],
+            "properties": {
+              "block_number": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9
+              },
+              "block_name": {
+                "type": "string",
+                "enum": [
+                  "hero_section",
+                  "problem_articulation",
+                  "agitate_amplify",
+                  "mechanism_solution",
+                  "how_it_works",
+                  "social_proof_credibility",
+                  "objection_handling",
+                  "offer_value_stack",
+                  "risk_reversal_final_cta"
+                ]
+              },
+              "components": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of elements in this block"
+              },
+              "positioning_rule": {
+                "type": "string",
+                "minLength": 20,
+                "description": "Exact placement rule (e.g., 'Above fold', 'Within 2.5cm of CTA')"
+              },
+              "psychology_trigger": {
+                "type": "string",
+                "minLength": 10,
+                "description": "Primary psychological mechanism activated (from Skill 09)"
+              },
+              "content_source": {
+                "type": "string",
+                "minLength": 20,
+                "description": "Which skill/data source populates this block"
+              },
+              "design_notes": {
+                "type": "string",
+                "minLength": 30,
+                "description": "Visual design guidance, conversion benchmarks, layout specifics"
+              }
+            }
+          }
+        }
+      }
+    },
+    "above_fold_optimization": {
+      "type": "object",
+      "required": ["blink_test_compliance", "hero_section_rules"],
+      "properties": {
+        "blink_test_compliance": {
+          "type": "object",
+          "required": [
+            "question_1_what_is_this",
+            "question_2_why_act_now",
+            "question_3_how_to_act"
+          ],
+          "properties": {
+            "question_1_what_is_this": {
+              "type": "string",
+              "minLength": 20
+            },
+            "question_2_why_act_now": {
+              "type": "string",
+              "minLength": 20
+            },
+            "question_3_how_to_act": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        },
+        "hero_section_rules": {
+          "type": "object",
+          "required": [
+            "navigation",
+            "primary_cta_count",
+            "trust_anchors_placement",
+            "headline_formula_used",
+            "subheadline_word_count"
+          ],
+          "properties": {
+            "navigation": {
+              "type": "string",
+              "enum": ["zero_top_nav_zero_footer_links", "minimal_legal_only"]
+            },
+            "primary_cta_count": {
+              "type": "integer",
+              "enum": [1]
+            },
+            "trust_anchors_placement": {
+              "type": "string",
+              "enum": ["immediately_below_headline", "adjacent_to_cta"]
+            },
+            "headline_formula_used": {
+              "type": "string",
+              "enum": ["cold_traffic", "direct_response", "curiosity_gap"]
+            },
+            "subheadline_word_count": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2} words$",
+              "description": "Must be '10-20 words' format"
+            },
+            "vsl_placement": {
+              "type": "string",
+              "enum": ["above_fold_autoplay_muted", "not_applicable"]
+            }
+          }
+        }
+      }
+    },
+    "visual_hierarchy": {
+      "type": "object",
+      "required": [
+        "fitts_law_compliance",
+        "proximity_rule_implementation",
+        "gaze_cueing",
+        "reading_pattern_applied"
+      ],
+      "properties": {
+        "fitts_law_compliance": {
+          "type": "object",
+          "required": ["highest_visual_weight_element", "dead_weight_check"],
+          "properties": {
+            "highest_visual_weight_element": {
+              "type": "string",
+              "minLength": 10
+            },
+            "dead_weight_check": {
+              "type": "string",
+              "minLength": 30
+            }
+          }
+        },
+        "proximity_rule_implementation": {
+          "type": "object",
+          "required": ["proof_blocks_near_cta", "guarantee_near_final_cta"],
+          "properties": {
+            "proof_blocks_near_cta": {
+              "type": "string",
+              "minLength": 30,
+              "description": "Specify exact distance (e.g., '2.2cm above CTA')"
+            },
+            "guarantee_near_final_cta": {
+              "type": "string",
+              "minLength": 30,
+              "description": "Specify exact distance (e.g., '2.4cm above final CTA')"
+            }
+          }
+        },
+        "gaze_cueing": {
+          "type": "object",
+          "required": ["person_image_used", "product_type_category"],
+          "properties": {
+            "person_image_used": {
+              "type": "string",
+              "enum": ["yes", "no"]
+            },
+            "gaze_direction": {
+              "type": "string",
+              "enum": ["direct_eye_contact", "averted_to_cta", "not_applicable"]
+            },
+            "product_type_category": {
+              "type": "string",
+              "enum": ["hedonic_lifestyle", "functional_problem_solving"]
+            }
+          }
+        },
+        "reading_pattern_applied": {
+          "type": "string",
+          "enum": ["f_pattern", "z_pattern", "layer_cake", "spotted"],
+          "description": "Dominant reading pattern optimized for"
+        }
+      }
+    },
+    "color_psychology": {
+      "type": "object",
+      "required": [
+        "buyer_psychology_ideal_color",
+        "brand_palette_used",
+        "selected_cta_color_role",
+        "selected_cta_color_hex",
+        "cta_color_rationale",
+        "contrast_validation",
+        "solid_vs_gradient"
+      ],
+      "properties": {
+        "buyer_psychology_ideal_color": {
+          "type": "string",
+          "enum": ["red", "orange", "green", "blue", "black"],
+          "description": "Psychology-optimal color based on Skill 09 buyer_state_analysis"
+        },
+        "psychology_rationale": {
+          "type": "string",
+          "minLength": 30,
+          "description": "Why this color is psychologically ideal (urgency/trust/calm/etc)"
+        },
+        "brand_palette_used": {
+          "type": "object",
+          "required": ["primary", "secondary", "accent", "neutral", "highlight"],
+          "description": "Full palette from Skill 06 visual-identity",
+          "properties": {
+            "primary": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "secondary": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "accent": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "neutral": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"},
+            "highlight": {"type": "string", "pattern": "^#[0-9A-Fa-f]{6}$"}
+          }
+        },
+        "selected_cta_color_role": {
+          "type": "string",
+          "enum": ["primary", "secondary", "accent", "neutral", "highlight"],
+          "description": "Which palette role is used for CTA button"
+        },
+        "selected_cta_color_hex": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Exact hex code from brand palette"
+        },
+        "cta_color_rationale": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Why this palette color was selected (psychology mapping + contrast + brand alignment)"
+        },
+        "contrast_validation": {
+          "type": "object",
+          "required": ["background_color", "contrast_ratio", "wcag_compliance"],
+          "properties": {
+            "background_color": {
+              "type": "string",
+              "pattern": "^#[0-9A-Fa-f]{6}$",
+              "description": "Background color CTA sits on (typically neutral)"
+            },
+            "contrast_ratio": {
+              "type": "string",
+              "pattern": "^\\d+(\\.\\d+)?:1$",
+              "description": "Calculated contrast ratio (e.g., '7.2:1')"
+            },
+            "wcag_compliance": {
+              "type": "string",
+              "enum": ["AA_compliant", "AAA_compliant", "needs_adjustment"],
+              "description": "WCAG 2.1 level (minimum 4.5:1 for AA)"
+            },
+            "conversion_lift_applicable": {
+              "type": "boolean",
+              "description": "True if high contrast = +9% lift applicable"
+            }
+          }
+        },
+        "solid_vs_gradient": {
+          "type": "string",
+          "enum": ["solid"],
+          "description": "Always solid (4% better performance)"
+        }
+      }
+    },
+    "typography_hierarchy": {
+      "type": "object",
+      "required": [
+        "desktop_sizing",
+        "mobile_sizing",
+        "font_weights_used",
+        "line_length_measure",
+        "wcag_spacing"
+      ],
+      "properties": {
+        "desktop_sizing": {
+          "type": "object",
+          "required": ["h1", "h2", "body"],
+          "properties": {
+            "h1": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            },
+            "h2": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            },
+            "body": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            }
+          }
+        },
+        "mobile_sizing": {
+          "type": "object",
+          "required": ["h1", "h2", "body"],
+          "properties": {
+            "h1": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            },
+            "h2": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            },
+            "body": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2}px$"
+            }
+          }
+        },
+        "font_weights_used": {
+          "type": "object",
+          "required": ["h1", "h2", "body"],
+          "properties": {
+            "h1": {
+              "type": "string",
+              "pattern": "^\\d{3}\\+.*$"
+            },
+            "h2": {
+              "type": "string",
+              "pattern": "^\\d{3}-\\d{3}.*$"
+            },
+            "body": {
+              "type": "string",
+              "pattern": "^\\d{3}.*$"
+            }
+          }
+        },
+        "line_length_measure": {
+          "type": "object",
+          "required": ["desktop", "mobile"],
+          "properties": {
+            "desktop": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2} characters.*$"
+            },
+            "mobile": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2} characters.*$"
+            }
+          }
+        },
+        "wcag_spacing": {
+          "type": "object",
+          "required": [
+            "line_height",
+            "letter_spacing",
+            "word_spacing",
+            "paragraph_spacing"
+          ],
+          "properties": {
+            "line_height": {
+              "type": "string",
+              "pattern": "^1\\.5x font size$"
+            },
+            "letter_spacing": {
+              "type": "string",
+              "pattern": "^0\\.12x font size$"
+            },
+            "word_spacing": {
+              "type": "string",
+              "pattern": "^0\\.16x font size$"
+            },
+            "paragraph_spacing": {
+              "type": "string",
+              "pattern": "^0\\.5-1x line height$"
+            }
+          }
+        }
+      }
+    },
+    "mobile_first_design": {
+      "type": "object",
+      "required": [
+        "touch_target_sizing",
+        "vsl_architecture",
+        "one_page_checkout",
+        "load_speed_target"
+      ],
+      "properties": {
+        "touch_target_sizing": {
+          "type": "object",
+          "required": ["cta_buttons", "interactive_text_padding"],
+          "properties": {
+            "cta_buttons": {
+              "type": "string",
+              "pattern": "^full-width.*44x44px.*$"
+            },
+            "interactive_text_padding": {
+              "type": "string",
+              "pattern": "^\\d+px minimum$"
+            }
+          }
+        },
+        "vsl_architecture": {
+          "type": "object",
+          "required": ["format", "placement", "autoplay_strategy"],
+          "properties": {
+            "format": {
+              "type": "string",
+              "enum": ["hybrid_vsl", "micro_vsl", "text_only"]
+            },
+            "video_length": {
+              "type": "string",
+              "pattern": "^\\d{2}-\\d{2,3} (seconds|minutes).*$"
+            },
+            "placement": {
+              "type": "string",
+              "enum": [
+                "above_fold_pattern_interrupt",
+                "mid_page",
+                "not_applicable"
+              ]
+            },
+            "autoplay_strategy": {
+              "type": "string",
+              "enum": ["autoplay_muted", "click_to_play", "not_applicable"]
+            },
+            "controls_visibility": {
+              "type": "string",
+              "enum": [
+                "hidden_forced_linear",
+                "visible_standard",
+                "not_applicable"
+              ]
+            }
+          }
+        },
+        "one_page_checkout": {
+          "type": "object",
+          "required": ["integration_type", "form_fields_count", "thank_you_page"],
+          "properties": {
+            "integration_type": {
+              "type": "string",
+              "enum": [
+                "built_in_opc_on_sales_page",
+                "separate_checkout_page"
+              ]
+            },
+            "form_fields_count": {
+              "type": "string",
+              "pattern": "^\\d+ or fewer.*$"
+            },
+            "thank_you_page": {
+              "type": "string",
+              "pattern": "^instant_upsell.*$"
+            }
+          }
+        },
+        "load_speed_target": {
+          "type": "string",
+          "pattern": "^LCP < \\d\\.\\d seconds.*$"
+        }
+      }
+    },
+    "future_pacing": {
+      "type": "object",
+      "required": [
+        "placement_blocks",
+        "timeline_frames",
+        "sensory_language",
+        "identity_transformation"
+      ],
+      "properties": {
+        "placement_blocks": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "integer",
+            "enum": [4, 5, 8]
+          }
+        },
+        "timeline_frames": {
+          "type": "object",
+          "required": ["24_hours", "7_days", "30_days"],
+          "properties": {
+            "24_hours": {
+              "type": "string",
+              "minLength": 30
+            },
+            "7_days": {
+              "type": "string",
+              "minLength": 30
+            },
+            "30_days": {
+              "type": "string",
+              "minLength": 30
+            }
+          }
+        },
+        "sensory_language": {
+          "type": "object",
+          "required": ["visual", "auditory", "kinesthetic"],
+          "properties": {
+            "visual": {
+              "type": "string",
+              "minLength": 20
+            },
+            "auditory": {
+              "type": "string",
+              "minLength": 20
+            },
+            "kinesthetic": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        },
+        "identity_transformation": {
+          "type": "object",
+          "required": ["before_identity", "after_identity", "bridge_product"],
+          "properties": {
+            "before_identity": {
+              "type": "string",
+              "minLength": 30
+            },
+            "after_identity": {
+              "type": "string",
+              "minLength": 30
+            },
+            "bridge_product": {
+              "type": "string",
+              "minLength": 30
+            }
+          }
+        }
+      }
+    },
+    "friction_reduction": {
+      "type": "object",
+      "required": ["cognitive_load", "decision_fatigue", "visual_breathing_room"],
+      "properties": {
+        "cognitive_load": {
+          "type": "object",
+          "required": ["form_fields_limit", "cta_word_choice", "navigation_removal"],
+          "properties": {
+            "form_fields_limit": {
+              "type": "string",
+              "pattern": "^\\d+ or fewer$"
+            },
+            "cta_word_choice": {
+              "type": "string",
+              "minLength": 20
+            },
+            "navigation_removal": {
+              "type": "string",
+              "minLength": 20
+            }
+          }
+        },
+        "decision_fatigue": {
+          "type": "object",
+          "required": ["primary_cta_count", "offer_choices", "information_hierarchy"],
+          "properties": {
+            "primary_cta_count": {
+              "type": "integer",
+              "enum": [1]
+            },
+            "offer_choices": {
+              "type": "string",
+              "minLength": 20
+            },
+            "information_hierarchy": {
+              "type": "string",
+              "minLength": 50
+            }
+          }
+        },
+        "visual_breathing_room": {
+          "type": "object",
+          "required": ["whitespace_benefit", "disconnect_prevention"],
+          "properties": {
+            "whitespace_benefit": {
+              "type": "string",
+              "minLength": 30
+            },
+            "disconnect_prevention": {
+              "type": "string",
+              "minLength": 30
+            }
+          }
+        }
+      }
+    },
+    "conversion_benchmarks": {
+      "type": "object",
+      "required": [
+        "proximity_rule_lift",
+        "contrast_cta_lift",
+        "hybrid_vsl_conversion",
+        "opc_lift"
+      ],
+      "additionalProperties": true,
+      "properties": {
+        "proximity_rule_lift": {
+          "type": "string",
+          "pattern": "^\\+\\d{1,2}-\\d{1,2}%.*$"
+        },
+        "contrast_cta_lift": {
+          "type": "string",
+          "pattern": "^\\+\\d+%.*$"
+        },
+        "solid_vs_gradient_lift": {
+          "type": "string",
+          "pattern": "^\\+\\d+%.*$"
+        },
+        "single_cta_lift": {
+          "type": "string",
+          "pattern": "^\\+\\d+%.*$"
+        },
+        "hybrid_vsl_conversion": {
+          "type": "string",
+          "pattern": "^\\d\\.\\d-\\d\\.\\d%.*$"
+        },
+        "opc_lift": {
+          "type": "string",
+          "pattern": "^\\+\\d\\.\\d%.*$"
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "required": [
+        "architecture_complexity",
+        "dominant_conversion_mechanism",
+        "awareness_level_optimized_for",
+        "mobile_traffic_percentage",
+        "confidence_score"
+      ],
+      "properties": {
+        "architecture_complexity": {
+          "type": "string",
+          "enum": [
+            "simple_single_page",
+            "medium_scrolling",
+            "complex_multi_block"
+          ]
+        },
+        "dominant_conversion_mechanism": {
+          "type": "string",
+          "enum": [
+            "scarcity",
+            "social_proof",
+            "authority",
+            "reciprocity",
+            "commitment"
+          ]
+        },
+        "awareness_level_optimized_for": {
+          "type": "string",
+          "enum": ["TOFU", "MOFU", "BOFU"]
+        },
+        "mobile_traffic_percentage": {
+          "type": "string",
+          "pattern": "^\\d{2}\\.\\d%.*$"
+        },
+        "confidence_score": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 10
+        },
+        "notes": {
+          "type": "string",
+          "description": "Contextual implementation notes for Skills 11-17"
+        }
+      }
+    }
+  }
+}

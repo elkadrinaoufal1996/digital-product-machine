@@ -712,7 +712,7 @@ def main():
 
     # ── Blocking Condition ────────────────────────────────────────────────────
     if statuses.get(1) == "FAILED" and statuses.get(3) == "FAILED":
-        log_error("primary market data unavailable — SOURCE 1 ET SOURCE 2 toutes deux FAILED — halt and report")
+        log_error("primary market data unavailable — SOURCE 1 (Gumroad) ET SOURCE 3 (Etsy) toutes deux FAILED — halt and report")
         sys.exit(1)
 
     log_info("Blocking Condition évaluée — OK pour continuer.\n")

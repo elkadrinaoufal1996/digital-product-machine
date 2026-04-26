@@ -464,13 +464,28 @@ def check_blocking_conditions(skill_id: str, output_data) -> bool:
     """
     Run the blocking_check lambda for the given skill.
     Returns True if all conditions pass, False otherwise.
+
+    For skills 06/07 the check_fn expects a parsed dict — parse raw_response
+    (str) into dict before calling. Skill 08 check_fn expects raw str.
     """
     config    = SKILL_CONFIG[skill_id]
     check_fn  = config["blocking_check"]
     block_msg = config["blocking_msg"]
 
     try:
-        if check_fn(output_data):
+        # Skills 06/07: check_fn expects dict — parse JSON string first
+        if skill_id in ("06", "07") and isinstance(output_data, str):
+            try:
+                parsed = json.loads(output_data)
+            except json.JSONDecodeError:
+                # Try extracting from markdown fences before failing
+                parsed = parse_json_response(output_data, skill_id)
+            check_input = parsed
+        else:
+            # Skill 08: check_fn expects raw string
+            check_input = output_data
+
+        if check_fn(check_input):
             log_ok("Blocking conditions OK")
             return True
         else:

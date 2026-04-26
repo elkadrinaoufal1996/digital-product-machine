@@ -1,0 +1,528 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 09 Output Schema",
+  "description": "Output validation for buyer-psychology-masterclass. This JSON becomes the foundational psychology layer consumed by Skills 10-17. Every field must be grounded in verbatim evidence.",
+  "type": "object",
+  "required": [
+    "lock_and_key",
+    "pas_sequence",
+    "aida_elements",
+    "bab_positioning",
+    "persuasion_mechanisms",
+    "buyer_state_analysis",
+    "objections_and_reversals",
+    "buyer_needs_analysis",
+    "meta"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "lock_and_key": {
+      "type": "object",
+      "description": "Core pain/desire (lock) and how the product resolves it (key). Both must trace to verbatim evidence and Phase 1 UVPs.",
+      "required": ["emotional_lock", "key_positioning", "evidence_verbatims", "jtbd_forces"],
+      "additionalProperties": false,
+      "properties": {
+        "emotional_lock": {
+          "type": "string",
+          "minLength": 50,
+          "description": "The dominant emotional pain or desire extracted from verbatims, expressed in buyer's own words. Never paraphrase."
+        },
+        "key_positioning": {
+          "type": "string",
+          "minLength": 50,
+          "description": "How the product resolves the lock, mapped explicitly to one of the 3 UVPs from Phase 1. Must not introduce new positioning."
+        },
+        "evidence_verbatims": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 10,
+          "description": "5-10 direct buyer quotes that support the identified lock. Each must include [source_url, date] attribution.",
+          "items": {
+            "type": "string",
+            "minLength": 40,
+            "description": "Format: 'Quote text [source_url, YYYY-MM-DD]'"
+          }
+        },
+        "jtbd_forces": {
+          "type": "object",
+          "description": "The 4 Forces of Progress (Jobs-to-Be-Done framework). Each force must be grounded in verbatim language.",
+          "required": ["push", "pull", "anxiety", "allegiance"],
+          "additionalProperties": false,
+          "properties": {
+            "push": {
+              "type": "string",
+              "minLength": 30,
+              "description": "Current frustration or dissatisfaction forcing the buyer to seek change. Extracted from pain verbatims."
+            },
+            "pull": {
+              "type": "string",
+              "minLength": 30,
+              "description": "What attracts the buyer toward the new solution. Extracted from aspiration verbatims."
+            },
+            "anxiety": {
+              "type": "string",
+              "minLength": 30,
+              "description": "Fear or uncertainty holding the buyer back from purchasing. Extracted from objection/skepticism verbatims."
+            },
+            "allegiance": {
+              "type": "string",
+              "minLength": 30,
+              "description": "Old habits, tools, or beliefs the buyer must abandon to adopt this solution. Extracted from resistance verbatims."
+            }
+          }
+        }
+      }
+    },
+    "pas_sequence": {
+      "type": "object",
+      "description": "Problem-Agitate-Solution sequence grounded in buyer verbatims. Used by Skill 15 (ads-copy) and Skill 17 (vsl-scripts).",
+      "required": ["problem", "agitate", "solution"],
+      "additionalProperties": false,
+      "properties": {
+        "problem": {
+          "type": "string",
+          "minLength": 50,
+          "description": "The problem stated in the buyer's exact vocabulary — never marketing jargon. Use verbatim phrases wherever possible."
+        },
+        "agitate": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "description": "3-5 consequence or escalation points that amplify the problem's emotional impact. Each must trace to verbatim evidence.",
+          "items": {
+            "type": "string",
+            "minLength": 30,
+            "description": "A specific consequence, ripple effect, or emotional intensifier extracted from buyer language"
+          }
+        },
+        "solution": {
+          "type": "string",
+          "minLength": 50,
+          "description": "How the product solves the agitated problem. Must be anchored to the dominant UVP from Phase 1. No vague promises."
+        }
+      }
+    },
+    "aida_elements": {
+      "type": "object",
+      "description": "AIDA (Attention-Interest-Desire-Action) elements extracted from buyer verbatims. Used by Skill 10 (architecture-persuasion) and Skill 17 (vsl-scripts).",
+      "required": ["attention_triggers", "interest_hooks", "desire_amplifiers", "action_barriers"],
+      "additionalProperties": false,
+      "properties": {
+        "attention_triggers": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "description": "Exactly 5 patterns from buyer language that would stop the scroll — pain points, curiosity gaps, provocative statements.",
+          "items": {
+            "type": "string",
+            "minLength": 15,
+            "description": "An attention-stopping pattern derived from verbatim buyer language"
+          }
+        },
+        "interest_hooks": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "description": "Exactly 5 angles that sustain interest — what buyers are actively researching, comparing, or seeking to understand.",
+          "items": {
+            "type": "string",
+            "minLength": 15,
+            "description": "An interest-building angle from buyer research behavior patterns"
+          }
+        },
+        "desire_amplifiers": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 5,
+          "description": "Exactly 5 transformation outcomes that create desire — the 'After' states buyers explicitly articulate in verbatims.",
+          "items": {
+            "type": "string",
+            "minLength": 15,
+            "description": "A specific desired outcome or transformation expressed in buyer language"
+          }
+        },
+        "action_barriers": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "description": "3-5 objections that prevent immediate action at checkout. Must be extracted from verbatims — never guessed.",
+          "items": {
+            "type": "string",
+            "minLength": 20,
+            "description": "A specific barrier to purchase extracted from buyer skepticism or hesitation verbatims"
+          }
+        }
+      }
+    },
+    "bab_positioning": {
+      "type": "object",
+      "description": "Before-After-Bridge identity positioning. Used by Skill 14 (storytelling-vente) and Skill 17 (vsl-scripts).",
+      "required": ["before_state", "after_state", "bridge_mechanism"],
+      "additionalProperties": false,
+      "properties": {
+        "before_state": {
+          "type": "string",
+          "minLength": 50,
+          "description": "The chaotic, rejected identity the buyer currently occupies. Must use specific details from verbatims, not generic descriptions."
+        },
+        "after_state": {
+          "type": "string",
+          "minLength": 50,
+          "description": "The prestigious, aspirational identity the buyer wants to inhabit. Must be vivid and specific — use sensory language from aspiration verbatims."
+        },
+        "bridge_mechanism": {
+          "type": "string",
+          "minLength": 30,
+          "description": "The product as the exclusive vehicle from Before to After. Must name the specific mechanism (system, framework, tool) not just the product category."
+        }
+      }
+    },
+    "persuasion_mechanisms": {
+      "type": "object",
+      "description": "Cialdini-based persuasion analysis tailored to this niche's buyer language patterns. Used by Skill 11 (offre-cta) and Skill 12 (preuve-confiance).",
+      "required": ["primary_mechanism", "trigger_words", "banned_patterns", "implementation_notes"],
+      "additionalProperties": false,
+      "properties": {
+        "primary_mechanism": {
+          "type": "string",
+          "enum": ["scarcity", "social_proof", "authority", "reciprocity", "commitment"],
+          "description": "The single most effective persuasion lever for this audience based on verbatim analysis. Must be justified in implementation_notes."
+        },
+        "trigger_words": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 15,
+          "description": "10-15 words and phrases that resonate with this specific audience — extracted from buyer verbatims and aspiration language, NOT generic copywriting lists.",
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "description": "A word or short phrase that appears in buyer language and triggers emotional resonance"
+          }
+        },
+        "banned_patterns": {
+          "type": "array",
+          "minItems": 5,
+          "maxItems": 10,
+          "description": "5-10 generic phrases, hype words, or AI-generated patterns that trigger skepticism in this audience. Identified through verbatim analysis of what buyers mock or reject.",
+          "items": {
+            "type": "string",
+            "minLength": 5,
+            "description": "A pattern, phrase, or word to avoid in all Phase 2 copy for this niche"
+          }
+        },
+        "implementation_notes": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Specific tactics for applying the primary mechanism to $17-$47 digital products. Must include rationale for mechanism selection and placement guidance."
+        }
+      }
+    },
+    "buyer_state_analysis": {
+      "type": "object",
+      "description": "Funnel stage and market sophistication diagnostics. Used by Skill 10 (architecture-persuasion) and Skill 15 (ads-copy) to calibrate copy intensity.",
+      "required": [
+        "awareness_level",
+        "awareness_diagnostic",
+        "sophistication_level",
+        "sophistication_evidence",
+        "dominant_objection",
+        "objection_category"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "awareness_level": {
+          "type": "string",
+          "enum": ["TOFU", "MOFU", "BOFU"],
+          "description": "Dominant funnel stage for this audience. TOFU = problem-aware, MOFU = solution-aware, BOFU = product-aware/decision-ready."
+        },
+        "awareness_diagnostic": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Evidence from verbatim language patterns that justify the TOFU/MOFU/BOFU classification. Quote specific search intent patterns or question types."
+        },
+        "sophistication_level": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Market sophistication score 1-5. 1 = naive/first-time buyers, 3 = moderately skeptical, 5 = hyper-skeptical veterans who've seen everything."
+        },
+        "sophistication_evidence": {
+          "type": "string",
+          "minLength": 50,
+          "description": "Skepticism patterns from verbatims that justify the sophistication score. Include specific buyer quotes that reveal their experience level."
+        },
+        "dominant_objection": {
+          "type": "string",
+          "minLength": 30,
+          "description": "The single biggest barrier preventing purchase for this niche. Must be extracted from verbatims — this is the #1 objection to neutralize in all Phase 2 assets."
+        },
+        "objection_category": {
+          "type": "string",
+          "enum": ["fit", "effort", "price", "integration", "results"],
+          "description": "Category of the dominant objection. fit=wrong audience, effort=too complex, price=not worth it, integration=compatibility, results=doesn't work."
+        }
+      }
+    },
+    "objections_and_reversals": {
+      "type": "object",
+      "description": "Objection map with matched risk reversal tactics. Used by Skill 11 (offre-cta) for checkout page and Skill 16 (email-sequences) for objection sequences.",
+      "required": ["objections", "risk_reversal_recommended"],
+      "additionalProperties": false,
+      "properties": {
+        "objections": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 5,
+          "description": "3-5 ranked objections, each with a matched reversal tactic. All sourced from verbatims — zero guesses.",
+          "items": {
+            "type": "object",
+            "required": ["objection", "fear_type", "verbatim_evidence", "reversal_tactic"],
+            "additionalProperties": false,
+            "properties": {
+              "objection": {
+                "type": "string",
+                "minLength": 20,
+                "description": "The objection stated as the buyer would think it (first-person internal monologue)"
+              },
+              "fear_type": {
+                "type": "string",
+                "enum": ["financial", "time", "social"],
+                "description": "Underlying visceral fear: financial=fear of scam/waste, time=fear of wasted effort, social=fear of judgment/ego"
+              },
+              "verbatim_evidence": {
+                "type": "string",
+                "minLength": 20,
+                "description": "Direct buyer quote from persona research that reveals this objection. Must be actual verbatim, not paraphrase."
+              },
+              "reversal_tactic": {
+                "type": "string",
+                "minLength": 30,
+                "description": "Specific counter-strategy matched to the fear type. Reference the Keep It All / Performance-Based / Double Money Back framework where applicable."
+              }
+            }
+          }
+        },
+        "risk_reversal_recommended": {
+          "type": "string",
+          "enum": ["keep_it_all", "performance_based", "double_money_back"],
+          "description": "The single strongest risk reversal for this niche's dominant fear. keep_it_all=financial fear, performance_based=time fear, double_money_back=social/ego fear."
+        }
+      }
+    },
+    "buyer_needs_analysis": {
+      "type": "object",
+      "description": "JTBD needs taxonomy and verbatim vocabulary. Used by all Phase 2 skills for voice-of-customer language alignment.",
+      "required": ["dominant_need", "verbatim_vocabulary", "moment_of_struggle"],
+      "additionalProperties": false,
+      "properties": {
+        "dominant_need": {
+          "type": "string",
+          "enum": ["functional", "emotional", "social", "psychological"],
+          "description": "The primary need category driving purchase motivation. functional=task completion, emotional=prestige/status, social=belonging, psychological=security/self-esteem."
+        },
+        "verbatim_vocabulary": {
+          "type": "array",
+          "minItems": 10,
+          "maxItems": 15,
+          "description": "10-15 exact buyer phrases to inject into Phase 2 copy. These are non-negotiable — they are the words buyers use, not marketing language.",
+          "items": {
+            "type": "string",
+            "minLength": 3,
+            "description": "An exact phrase extracted from buyer verbatims (word, idiom, or short expression)"
+          }
+        },
+        "moment_of_struggle": {
+          "type": "string",
+          "minLength": 50,
+          "description": "The specific JTBD 'hiring moment' — the exact situation or trigger that pushes the buyer to seek this solution. Must be concrete and situational, not abstract."
+        }
+      }
+    },
+    "advanced_tactics": {
+      "type": "object",
+      "description": "Premium tactics from NotebookLM. ONLY populate if verbatims support them — do not force if basic PAS/AIDA is sufficient.",
+      "additionalProperties": false,
+      "properties": {
+        "big_domino_shift": {
+          "type": "string",
+          "description": "Guilt-Shift template adapted to this niche. Only include if verbatims show buyers blaming themselves for failures with old methods. Format: 'You didn't fail because of [X], you failed because [Old System] required [Friction]. Our [New Framework] eliminates this variable.'"
+        },
+        "instant_utility_angle": {
+          "type": "string",
+          "description": "Plug-and-play tool positioning. Only include if sophistication >= 4 and verbatims show rejection of pure information products. Specify the exact tool format (template, AI prompt, Notion dashboard, etc.)."
+        },
+        "micro_engagement_hook": {
+          "type": "string",
+          "description": "Quiz or calculator angle for dopamine loop micro-funnel. Only include if the audience's JTBD shows need for diagnosis/validation before purchase. Specify the quiz/calculator type and the 'aha moment' it delivers."
+        }
+      }
+    },
+    "meta": {
+      "type": "object",
+      "description": "Quality control metadata for downstream skills.",
+      "required": ["total_verbatims_analyzed", "confidence_score", "primary_framework_used"],
+      "additionalProperties": false,
+      "properties": {
+        "total_verbatims_analyzed": {
+          "type": "integer",
+          "minimum": 15,
+          "description": "Total count of verbatim quotes analyzed across all 3 personas. Must be >= 15 or BLOCKING CONDITION #4 triggers."
+        },
+        "confidence_score": {
+          "type": "integer",
+          "minimum": 7,
+          "maximum": 10,
+          "description": "Output confidence score 7-10. Measures how consistently verbatims support the identified patterns. Below 7 = re-run with more research."
+        },
+        "primary_framework_used": {
+          "type": "string",
+          "enum": ["PAS", "AIDA", "BAB", "JTBD"],
+          "description": "The dominant persuasion framework that best fits this niche's buyer state and awareness level."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Contextual insights, caveats, or special instructions for Skills 10-17. Use this field to flag niche-specific nuances that downstream skills must respect."
+        },
+        "skill_version": {
+          "type": "string",
+          "description": "Optional: version of Skill 09 used to generate this output (e.g., '1.0.0')"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Optional: ISO 8601 timestamp of when this analysis was generated"
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "lock_and_key": {
+        "emotional_lock": "I've spent thousands on courses and coaching this year and I'm no further along than I was 12 months ago. Every purchase feels like another bet I'm losing.",
+        "key_positioning": "The 48-Hour Action Pack eliminates the course-collection trap by delivering only the executable actions needed to generate your first $47 online — complete it in one weekend, implement Monday.",
+        "evidence_verbatims": [
+          "\"I've bought 7 courses this year and finished zero. They sit in my downloads gathering digital dust.\" [https://reddit.com/r/Entrepreneur/1abc, 2026-03-15]",
+          "\"Another $497 course I'll probably watch 2 modules of. Why do I keep doing this?\" [https://reddit.com/r/Entrepreneur/2xyz, 2026-02-28]",
+          "\"I don't need more information. I need someone to just tell me the next action.\" [https://reddit.com/r/sidehustle/3def, 2026-01-10]",
+          "\"I'm stuck in analysis paralysis. I know what to do theoretically but can't execute.\" [https://reddit.com/r/Entrepreneur/4ghi, 2026-03-01]",
+          "\"Just give me a checklist. Step 1, Step 2, Step 3. That's all I want.\" [https://twitter.com/example/123, 2026-02-14]"
+        ],
+        "jtbd_forces": {
+          "push": "Accumulating unfinished courses creates guilt and erodes self-belief that change is possible — each new purchase feels like compounding failure.",
+          "pull": "The promise of a condensed, implementable system that can produce a visible result within 48 hours breaks the course-hoarding cycle.",
+          "anxiety": "Fear that this product will be 'more of the same' — another passive learning experience with no accountability or real-world application.",
+          "allegiance": "The habit of consuming educational content rather than shipping — buyers must abandon the identity of 'student' and adopt the identity of 'operator'."
+        }
+      },
+      "pas_sequence": {
+        "problem": "You've bought the courses, watched the webinars, and bookmarked the YouTube videos — but your downloads folder is full of unfinished PDFs and your income hasn't moved.",
+        "agitate": [
+          "Meanwhile, people who started their online business after you are posting revenue screenshots. You've invested more in education but earned less.",
+          "Every new course feels logical at the time — 'this one will be different' — but the completion rate never changes. The guilt compounds.",
+          "You're in information debt. $2,000+ spent on knowledge you haven't implemented. The ROI is negative and you know it.",
+          "Worse: you're avoiding the subject altogether now. The unopened course emails go straight to archive. The tab stays closed."
+        ],
+        "solution": "The 48-Hour Action Pack is not a course — it's 5 chapters you read and implement in one weekend. No modules, no video lectures, no community to get lost in. Just the exact sequence that produces your first sale by Monday morning."
+      },
+      "aida_elements": {
+        "attention_triggers": [
+          "\"Why do 94% of online courses sit unfinished in downloads folders?\"",
+          "\"The $2,000 mistake every solopreneur makes before their first sale\"",
+          "\"Still waiting for the 'right time' to start? Your competitors aren't.\"",
+          "\"What if you could complete the entire system this weekend?\"",
+          "\"I analyzed 1,200 failed online businesses — they all had this in common\""
+        ],
+        "interest_hooks": [
+          "The neuroscience of why 40-module courses trigger abandonment (and what format actually gets completed)",
+          "How one solopreneur went from 12 unfinished courses to $12K/month by switching to action-first learning",
+          "The 48-hour implementation window: why results must happen before the weekend ends or they never happen",
+          "The difference between information-dense and action-dense products — and why buyers confuse the two",
+          "Why 'implementation anxiety' is the real conversion killer — not price, not trust, not competition"
+        ],
+        "desire_amplifiers": [
+          "Logging into Stripe Monday morning to see a real payment notification from work done over the weekend",
+          "Finally closing the 23 browser tabs and running one proven system instead of juggling five half-baked ideas",
+          "Telling people 'I have an online business' and meaning it — no longer a 'course collector' but a revenue operator",
+          "The feeling of completion: a finished system, a live offer, and proof that you can ship",
+          "Building the next product with confidence because you've already proven the process works once"
+        ],
+        "action_barriers": [
+          "\"Is this just another course repackaged with a different name?\"",
+          "\"I've tried weekend sprints before and always get pulled away by life — what makes this different?\"",
+          "\"$47 isn't much but I've wasted $3,000 already this year on things that didn't work\"",
+          "\"I don't have a big audience or email list — will this even work for me?\""
+        ]
+      },
+      "bab_positioning": {
+        "before_state": "The Course Collector: downloads folder full of unfinished PDFs, 23 browser tabs open with 'how to' videos, paralyzed by information overload, avoiding the topic entirely because each new attempt adds to the guilt pile.",
+        "after_state": "The Systematic Executor: one proven funnel running on autopilot, Stripe notifications arriving while offline, confident enough to build the next product without second-guessing every step.",
+        "bridge_mechanism": "The 48-Hour Action Pack — a 5-chapter executable system designed to be completed in a single weekend, producing a live offer and first sale before Monday."
+      },
+      "persuasion_mechanisms": {
+        "primary_mechanism": "commitment",
+        "trigger_words": [
+          "this weekend", "48 hours", "action guide", "step-by-step", "no modules",
+          "first sale", "done for you", "plug-and-play", "ship it", "copy-paste",
+          "implemented", "zero theory", "live offer", "Monday morning", "no fluff"
+        ],
+        "banned_patterns": [
+          "game-changer", "passive income", "6-figure blueprint", "secret system", "guru",
+          "unlock your potential", "transform your life", "join thousands", "revolutionary method"
+        ],
+        "implementation_notes": "Primary mechanism is commitment/consistency because this audience has analysis paralysis and needs micro-commitment before price reveal. Lead with a 60-second ROI quiz to trigger IKEA effect. At $47 price point, the barrier is not financial — it's fear of another incomplete investment. Scarcity via 'Phased Bonus Depletion' (remove implementation coaching call bonus after 48h) works without fake supply scarcity."
+      },
+      "buyer_state_analysis": {
+        "awareness_level": "MOFU",
+        "awareness_diagnostic": "Buyers are actively searching 'how to make money online without a big audience' and 'best digital product to sell in 2026' — commercial intent queries indicating solution awareness but not product-brand awareness.",
+        "sophistication_level": 4,
+        "sophistication_evidence": "Verbatims show buyers who've purchased 5-10 competing products ('bought 7 courses this year'), recognize marketing tactics ('another guru promising passive income'), and specifically mock hype language. Countdown timers and 'limited spots' language will trigger immediate distrust.",
+        "dominant_objection": "\"This is probably just another repackaged info-product that I'll buy, feel motivated for 48 hours, then abandon like all the others.\"",
+        "objection_category": "results"
+      },
+      "objections_and_reversals": {
+        "objections": [
+          {
+            "objection": "\"This is just another course I'll buy and never finish.\"",
+            "fear_type": "time",
+            "verbatim_evidence": "\"I've bought 7 courses this year and finished zero. They all sit in my downloads gathering digital dust.\" [Reddit, 2026-03-15]",
+            "reversal_tactic": "Performance-Based Guarantee: 'Complete Module 1 (45 minutes) and implement the first action. If you don't have a live offer draft by end of Day 1, email us and we'll refund + give you $47 credit for our next product.' This shifts the risk entirely and proves we believe in the system."
+          },
+          {
+            "objection": "\"$47 feels fine but I've already lost $3,000 on products that didn't work.\"",
+            "fear_type": "financial",
+            "verbatim_evidence": "\"I'm done spending money on education that doesn't translate. Every purchase feels like a bet I'm losing.\" [Reddit r/sidehustle, 2026-02-10]",
+            "reversal_tactic": "Keep It All: 'If at any point in the first 30 days you're not satisfied, email one word — REFUND — and you'll receive a full refund within 24 hours. You keep everything you downloaded. No forms, no questions, no guilt.' Positions brand as low-risk partner, not extractive vendor."
+          },
+          {
+            "objection": "\"I don't have an audience. Will this even work for me?\"",
+            "fear_type": "social",
+            "verbatim_evidence": "\"Everyone teaching this stuff assumes you already have a following. I'm starting from zero. Zero emails, zero social.\" [Reddit r/Entrepreneur, 2026-01-22]",
+            "reversal_tactic": "Proactive FAQ neutralization: 'This system was built for zero-audience operators. The included Audience-Free Launch template shows the exact outreach sequence used to generate first $500 with no list, no social following, no ad spend.' Address in copy before checkout — not in post-purchase FAQ."
+          }
+        ],
+        "risk_reversal_recommended": "performance_based"
+      },
+      "buyer_needs_analysis": {
+        "dominant_need": "psychological",
+        "verbatim_vocabulary": [
+          "spinning my wheels", "nothing sticks", "digital dust", "analysis paralysis",
+          "just tell me what to do", "done is better than perfect", "ship it",
+          "first sale", "actually works", "real results", "without a big audience",
+          "stop overthinking", "accountability", "just start"
+        ],
+        "moment_of_struggle": "The buyer is at 11pm on a Sunday, watching a YouTube video about someone's $50K month, with 23 browser tabs open and nothing shipped. They've been 'learning' for 8 months and their income is identical to when they started. They search 'how to actually make money online' for the 40th time."
+      },
+      "advanced_tactics": {
+        "big_domino_shift": "You didn't fail to build an online business because you're not smart enough or not disciplined enough. You failed because every course you bought was designed for a 90-day commitment that life inevitably interrupts by Day 3. The 48-Hour Action Pack eliminates this variable by front-loading every implementation decision into a single focused weekend.",
+        "instant_utility_angle": "Position as a 'Done-For-You Starter Pack' — not a course, not a training, not a masterclass. Buyers receive: 5 executable templates (no blank pages), a copy-paste offer description, and a launch sequence they can run tonight. Zero original writing required on Day 1.",
+        "micro_engagement_hook": "Pre-checkout quiz: 'What's your biggest obstacle right now?' (3 options: Not enough time / Not sure what to sell / Afraid it won't work). Instant scorecard shows which of the 5 pack modules directly solves their specific blocker. IKEA effect activates before they see the price — they've already mentally placed themselves inside the product."
+      },
+      "meta": {
+        "total_verbatims_analyzed": 23,
+        "confidence_score": 9,
+        "primary_framework_used": "JTBD",
+        "notes": "Audience sophistication level 4 means Skills 10-17 must strip all hype language and lead with mechanism proof over benefit claims. The 'Course Collector' identity is the defining BAB anchor — reference it explicitly in Skill 14 (storytelling). Skill 16 (email-sequences) should open with the guilt-shift sequence before introducing the product. The performance-based guarantee must appear within 2.5cm of CTA in all BOFU assets."
+      }
+    }
+  ]
+}

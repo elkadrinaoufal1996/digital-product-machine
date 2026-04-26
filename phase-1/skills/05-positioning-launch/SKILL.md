@@ -373,6 +373,33 @@ Generated: [date] | Market: US | Skill chain: 01→02→03→04→05
 
 ---
 *Input files: 02-scored.json | 03-xray.json | 04-personas.json*
+
+---
+
+## MACHINE-READABLE
+```json
+{
+  "validated_niche": "[exact niche name from 03-xray.json final_niche]",
+  "dominant_emotion": "[one of: fear|desire|frustration|aspiration|trust|exclusivity]",
+  "dominant_persona": {
+    "age_range": "[from 04-personas.json persona 1]",
+    "gender": "[from 04-personas.json persona 1]",
+    "psychographic": "[from 04-personas.json persona 1 psychographic descriptor]"
+  },
+  "price_point_tier": 27,
+  "price_point_actual": 27,
+  "top_3_uvp": [
+    "[UVZ rank 1 condensed to 1 sentence]",
+    "[UVZ rank 2 condensed to 1 sentence]",
+    "[UVZ rank 3 condensed to 1 sentence]"
+  ],
+  "promise_statement": "[RECOMMENDED VERSION from Section 1 — full text]",
+  "competitor_dominant_angle": "[dominant pattern from Firecrawl SOURCE B]",
+  "new_mechanism_name": "[proprietary name derived from ebook title + UVZ rank 1]",
+  "market_awareness_level": "[one of: unaware|problem_aware|solution_aware|product_aware|most_aware]",
+  "confidence_score": 7.0
+}
+```
 ```
 
 ---

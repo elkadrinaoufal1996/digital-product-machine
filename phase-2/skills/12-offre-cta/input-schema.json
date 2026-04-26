@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Skill 12 — Input Validation Schema",
+  "description": "Required fields from skills 09, 10, 11 before skill 12 executes",
+  "version": "1.0",
+  "required_files": [
+    "outputs/09-buyer-psychology.json",
+    "outputs/10-architecture.json",
+    "outputs/11-funnel-architecture.json"
+  ],
+  "required_from_09": {
+    "source": "outputs/09-buyer-psychology.json",
+    "fields": [
+      {
+        "path": "buyer_state_analysis.awareness_level",
+        "type": "string",
+        "enum": ["TOFU", "MOFU", "BOFU"],
+        "description": "Funnel stage of the primary persona — drives CTA tone and scarcity intensity"
+      },
+      {
+        "path": "persona_primary.core_desires",
+        "type": "array",
+        "minItems": 3,
+        "description": "Top desires extracted from verbatims — anchors dream_outcome in value_equation"
+      },
+      {
+        "path": "persona_primary.pain_points",
+        "type": "array",
+        "minItems": 3,
+        "description": "Validated pain points — anchors PAS sequence and big_domino_claim"
+      },
+      {
+        "path": "persona_primary.top_objections",
+        "type": "array",
+        "minItems": 2,
+        "description": "Top purchase objections — fuels guarantee copy and risk reversal CTA"
+      },
+      {
+        "path": "verbatims_bank",
+        "type": "array",
+        "minItems": 10,
+        "description": "Raw verbatims — MANDATORY source for all CTA copy (VoC rule)"
+      },
+      {
+        "path": "advanced_tactics.big_domino_shift",
+        "type": "string",
+        "description": "The single belief to collapse — drives big_domino_claim in grand_slam_offer"
+      }
+    ]
+  },
+  "required_from_10": {
+    "source": "outputs/10-architecture.json",
+    "fields": [
+      {
+        "path": "lp_blocks",
+        "type": "array",
+        "minItems": 9,
+        "description": "9 LP blocks in order — CTA matrix maps one CTA per relevant block"
+      },
+      {
+        "path": "brand_palette",
+        "type": "object",
+        "description": "Brand colors — informs CTA button color context"
+      },
+      {
+        "path": "blink_test_hero",
+        "type": "object",
+        "description": "Hero block headline + subheadline — hero CTA must extend this message, not contradict it"
+      }
+    ]
+  },
+  "required_from_11": {
+    "source": "outputs/11-funnel-architecture.json",
+    "fields": [
+      {
+        "path": "funnel_type",
+        "type": "string",
+        "enum": ["Simple Direct", "Lead Magnet 5-Day", "VSL", "Webinar", "Quiz"],
+        "description": "Funnel architecture — impacts CTA placement and scarcity mechanism selection"
+      },
+      {
+        "path": "price_point",
+        "type": "number",
+        "minimum": 17,
+        "maximum": 47,
+        "description": "Core offer price — calibrates value stack ratio (minimum 10:1)"
+      },
+      {
+        "path": "order_bump_price",
+        "type": "number",
+        "minimum": 12,
+        "maximum": 19,
+        "description": "Order bump price — must be in $12-$19 range for minimal friction"
+      },
+      {
+        "path": "oto_price",
+        "type": "number",
+        "minimum": 51,
+        "maximum": 100,
+        "description": "OTO price — positioned on Thank You page for buying spree momentum"
+      },
+      {
+        "path": "bonus_depletion_timeline",
+        "type": "object",
+        "description": "Phased depletion schedule — drives scarcity_timeline section"
+      },
+      {
+        "path": "value_stack_ratio_target",
+        "type": "number",
+        "minimum": 10,
+        "description": "Minimum ratio target — skill 12 must meet or exceed this"
+      }
+    ]
+  },
+  "optional_from_00": {
+    "source": "outputs/00-persuasion-intel.json",
+    "description": "Competitive intel — used to differentiate offer vs market. Non-blocking if missing.",
+    "fields": [
+      {
+        "path": "competitor_offers",
+        "type": "array",
+        "description": "Competitor value stacks — used to avoid saturated promises"
+      },
+      {
+        "path": "market_hooks",
+        "type": "array",
+        "description": "Hooks that already work — informs VoC word choices"
+      }
+    ]
+  },
+  "blocking_error_messages": {
+    "missing_file": "[BLOCKING ERROR: {file} missing — sequential dependency violation. Run Skill {n} before Skill 12.]",
+    "missing_field": "[BLOCKING ERROR: {field} not found in {file} — cannot generate evidence-anchored offer without this data.]",
+    "invalid_price": "[BLOCKING ERROR: price_point {value} out of range $17-$47 — skill 12 is calibrated for this price band only.]",
+    "ratio_too_low": "[BLOCKING ERROR: value_stack_ratio_target {value} < 10 — minimum 10:1 ratio required by doctrine.]"
+  }
+}

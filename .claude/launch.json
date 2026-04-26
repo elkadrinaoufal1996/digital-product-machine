@@ -1,0 +1,35 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Phase 1 — Market Intelligence",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["phase-1/phase1.py", "--market=US"],
+      "port": null
+    },
+    {
+      "name": "Phase 1.5 — Brand Foundation",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["phase-1-5/phase1-5.py"],
+      "port": null
+    },
+    {
+      "name": "Skill 01 — Market Discovery (scraper)",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["phase-1/agents/scraper.py"],
+      "port": null
+    },
+    {
+      "name": "Skill 02-05 — Analyst (Phase 1)",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["phase-1/agents/analyst.py"],
+      "port": null
+    },
+    {
+      "name": "Skill 06-08 — Analyst (Phase 1.5)",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["phase-1-5/agents/analyst.py"],
+      "port": null
+    }
+  ]
+}
