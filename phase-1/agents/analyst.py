@@ -23,10 +23,17 @@ import argparse
 import json
 import os
 import sys
+import time
 from pathlib import Path
 
 import anthropic
 from dotenv import load_dotenv
+
+try:
+    import jsonschema
+    _JSONSCHEMA_AVAILABLE = True
+except ImportError:
+    _JSONSCHEMA_AVAILABLE = False
 
 # ─── Chemins ────────────────────────────────────────────────────────────────
 BASE_DIR    = Path(__file__).parent.parent.resolve()
@@ -326,7 +333,7 @@ def check_blocking_conditions(skill_id: str, output_data) -> bool:
 def write_output(skill_id: str, content) -> Path:
     """
     Écrit le fichier output dans outputs/.
-    - Skills 02/03/04 → JSON pretty-printed
+    - Skills 02/03/04 → JSON pretty-printed + jsonschema validation
     - Skill 05 → Markdown brut
 
     Retourne le chemin du fichier créé.
@@ -344,6 +351,24 @@ def write_output(skill_id: str, content) -> Path:
                 json.dumps(content, ensure_ascii=False, indent=2),
                 encoding="utf-8"
             )
+            # ── jsonschema validation ──────────────────────────────────────
+            if _JSONSCHEMA_AVAILABLE:
+                schema_path = SKILLS_DIR / config["skill_dir"] / "output-schema.json"
+                if schema_path.exists():
+                    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+                    validator = jsonschema.Draft7Validator(schema)
+                    errors = list(validator.iter_errors(content))
+                    if errors:
+                        log_warn(f"Schema validation warnings for {output_name}:")
+                        for err in errors[:5]:  # cap at 5 to avoid noise
+                            field = " -> ".join(str(p) for p in err.absolute_path) or "root"
+                            log_warn(f"  FIELD '{field}': {err.message}")
+                    else:
+                        log_ok(f"Schema validation passed — {output_name} conforms to output-schema.json")
+                else:
+                    log_warn(f"No output-schema.json found for Skill {skill_id} — skipping validation")
+            else:
+                log_warn("jsonschema not installed — skipping schema validation (run: pip install jsonschema)")
         else:
             # Markdown (skill 05)
             output_path.write_text(content, encoding="utf-8")
